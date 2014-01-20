@@ -13,6 +13,10 @@ use Cz\Framework\Exceptions;
  * `getName()` that implements the logic. If you call the object's getter, `$object->get('name')`,
  * it'll detect the `getName()` method and use it. It works similarly with other access types.
  * 
+ * Custom access methods here are designed to follow the _camelCase_ naming convention. Should
+ * you wish to change that, just override these two methods in _your_ object extension:
+ * `_getMethodName()` and `_getAccessParameters()`.
+ * 
  * Additional traits may be attached to _your_ object extension to provide array, property or
  * method access, or even all of them together. See `Cz\Framework\Object` namespace for the details.
  * 
