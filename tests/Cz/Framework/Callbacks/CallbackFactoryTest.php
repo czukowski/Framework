@@ -5,6 +5,8 @@ use Cz\PHPUnit;
 /**
  * CallbackFactoryTest
  * 
+ * Tests the correct Callback class instances are being created.
+ * 
  * @package    Framework
  * @category   Callbacks
  * @author     Korney Czukowski

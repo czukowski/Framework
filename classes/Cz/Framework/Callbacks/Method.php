@@ -5,6 +5,14 @@ use Cz\Framework\Exceptions;
 /**
  * Method
  * 
+ * This type of the callback, when invoked, calls a function or method using the specified
+ * arguments and returns the result. The following callback arguments are allowed:
+ * 
+ *   - string: must be valid functon or method name and must pass the `is_callable()` check,
+ *   - array: must have exactly two members, the first is an object, second is a string, must
+ *     also pass the `is_callable()` check,
+ *   - object: must be instance of `\Closure`.
+ * 
  * @package    Framework
  * @category   Callbacks
  * @author     Korney Czukowski

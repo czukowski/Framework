@@ -5,6 +5,9 @@ use Cz\Framework\Exceptions;
 /**
  * Constructor
  * 
+ * This type of the callback, when invoked, creates and returns a new class instance
+ * of the given type, optionally using arguments.
+ * 
  * @package    Framework
  * @category   Callbacks
  * @author     Korney Czukowski

@@ -4,6 +4,8 @@ namespace Cz\Framework\Callbacks;
 /**
  * ConstructorTest
  * 
+ * Tests that the created objects are instances of the callback classnames.
+ * 
  * @package    Framework
  * @category   Callbacks
  * @author     Korney Czukowski
@@ -35,16 +37,18 @@ class ConstructorTest extends Testcase
 
 	public function provideConstruct()
 	{
+		// [callback definition, expect exception?]
 		return array(
 			// Invalid definitions.
 			array('PHPUnit_Framework_TestCase::any', TRUE),
 			array(array($this, 'provideConstruct'), TRUE),
 			array(new \stdClass, TRUE),
 			array(function() {return TRUE;}, TRUE),
-			// Classname definitions.
+			// Valid classname definitions.
 			array(get_class($this), FALSE),
 			array($this->getClassName(), FALSE),
 			array('ArrayObject', FALSE),
+			// Valid classname definition, but not instanciable.
 			array('Cz\Framework\Callbacks\CallbackInterface', TRUE),
 		);
 	}

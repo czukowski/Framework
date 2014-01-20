@@ -5,6 +5,8 @@ use Cz\Framework\Exceptions;
 /**
  * CallbackFactory
  * 
+ * This class creates the appropriate Callback instance based on the callback argument type.
+ * 
  * @package    Framework
  * @category   Callbacks
  * @author     Korney Czukowski

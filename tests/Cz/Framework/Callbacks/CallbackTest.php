@@ -5,6 +5,8 @@ use Cz\PHPUnit;
 /**
  * ConstructorTest
  * 
+ * Tests the methods defined in the abstract class.
+ * 
  * @package    Framework
  * @category   Callbacks
  * @author     Korney Czukowski

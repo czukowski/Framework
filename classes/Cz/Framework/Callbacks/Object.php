@@ -5,6 +5,8 @@ use Cz\Framework\Exceptions;
 /**
  * Method
  * 
+ * This type of the callback, when invoked, returns the object instance it contains.
+ * 
  * @package    Framework
  * @category   Callbacks
  * @author     Korney Czukowski

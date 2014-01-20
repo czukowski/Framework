@@ -4,6 +4,8 @@ namespace Cz\Framework\Callbacks;
 /**
  * Callback
  * 
+ * Generic callback class, implements methods commonly used by the specific callback classes.
+ * 
  * @package    Framework
  * @category   Callbacks
  * @author     Korney Czukowski

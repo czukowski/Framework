@@ -4,6 +4,9 @@ namespace Cz\Framework\Callbacks;
 /**
  * MethodTest
  * 
+ * Tests the Method Callback invocation return values. If an object is expected as the return
+ * value, its type is checked, other return types are compared to the expected return values.
+ * 
  * @package    Framework
  * @category   Callbacks
  * @author     Korney Czukowski

@@ -5,6 +5,9 @@ use Cz\PHPUnit;
 /**
  * Testcase
  * 
+ * This test is common to several specific Callback tests. It verifies that exception
+ * is thrown when invalid arguments are passed to Callback constructors.
+ * 
  * @package    Framework
  * @category   Callbacks
  * @author     Korney Czukowski
@@ -29,5 +32,8 @@ abstract class Testcase extends PHPUnit\Testcase
 		));
 	}
 
+	/**
+	 * @return  array
+	 */
 	abstract function provideConstruct();
 }

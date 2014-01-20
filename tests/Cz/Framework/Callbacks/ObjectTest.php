@@ -4,6 +4,8 @@ namespace Cz\Framework\Callbacks;
 /**
  * ObjectTest
  * 
+ * Tests that the same object is returned when the Callback is invoked.
+ * 
  * @package    Framework
  * @category   Callbacks
  * @author     Korney Czukowski
