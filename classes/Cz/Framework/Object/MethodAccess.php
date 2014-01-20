@@ -5,6 +5,16 @@ use Cz\Framework\Exceptions;
 /**
  * MethodAccess
  * 
+ * Used to provide method access to the Object, even if these methods are not implemented.
+ * See examples:
+ * 
+ *   - `$object->getKey()` equals to `$object->get('key')`
+ *   - `$object->setKey('value')` equals to `$object->set('key', 'value')`
+ *   - `$object->existsKey()` equals to `$object->exists('key')`
+ *   - `$object->eraseKey()` equals to `$object->erase('key')`
+ * 
+ * Obviously, the custom methods may still be implemented to override the default logic.
+ * 
  * @package    Framework
  * @category   Object
  * @author     Korney Czukowski

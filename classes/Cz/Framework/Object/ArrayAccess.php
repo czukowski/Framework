@@ -4,6 +4,13 @@ namespace Cz\Framework\Object;
 /**
  * ArrayAccess
  * 
+ * Used to provide array access to the Object. See examples:
+ * 
+ *   - `$object['key']` equals to `$object->get('key')`
+ *   - `$object['key'] = 'value'` equals to `$object->set('key', 'value')`
+ *   - `isset($object['key'])` equals to `$object->exists('key')`
+ *   - `unset($object['key'])` equals to `$object->erase('key')`
+ * 
  * @package    Framework
  * @category   Object
  * @author     Korney Czukowski

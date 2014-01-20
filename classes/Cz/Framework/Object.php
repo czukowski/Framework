@@ -5,6 +5,17 @@ use Cz\Framework\Exceptions;
 /**
  * Object
  * 
+ * This class provides a generic container for multiple key-value pairs. Generic access methods
+ * are provided: `get($key, $default)`, `set($key, $value)`, `exists($key)` and `erase($key)`.
+ * 
+ * Custom access methods are supported. For example, you may wish to load a default value
+ * for a `name` key if it's not set. In order to do that, you may define a custom method named
+ * `getName()` that implements the logic. If you call the object's getter, `$object->get('name')`,
+ * it'll detect the `getName()` method and use it. It works similarly with other access types.
+ * 
+ * Additional traits may be attached to _your_ object extension to provide array, property or
+ * method access, or even all of them together. See `Cz\Framework\Object` namespace for the details.
+ * 
  * @package    Framework
  * @category   Entities
  * @author     Korney Czukowski
