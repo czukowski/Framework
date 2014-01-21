@@ -1,0 +1,25 @@
+{
+	"name": "cz/framework",
+	"type": "library",
+	"description": "Small PHP-based framework to help where needed and not get in the way where not",
+	"keywords": [],
+	"homepage": "https://github.com/czukowski/Framework/",
+	"license": "MIT",
+	"authors": [
+		{
+			"name": "Korney Czukowski",
+			"homepage": "http://это-я.com"
+		}
+	],
+	"support": {
+		"issues": "https://github.com/czukowski/Framework/issues"
+	},
+	"require": {
+		"php": ">=5.4.0"
+	},
+	"autoload": {
+		"psr-0": {
+			"Cz\\": "classes/Cz/"
+		}
+	}
+}
