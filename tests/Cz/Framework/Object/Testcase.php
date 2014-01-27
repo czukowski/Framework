@@ -27,6 +27,7 @@ abstract class Testcase extends PHPUnit\Testcase
 
 	/**
 	 * Data provider includes the data from the previous provider plus an ArrayObject.
+	 * Used by `ObjectTest::testSetOneArgument()`.
 	 */
 	public function provideExtendedItems()
 	{
