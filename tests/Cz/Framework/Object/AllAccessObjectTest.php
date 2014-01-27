@@ -10,6 +10,8 @@ use Cz\Framework;
  * @author     Korney Czukowski
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
+ * 
+ * @property  AllAccessObject  $object
  */
 class AllAccessObjectTest extends Testcase
 {
