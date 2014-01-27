@@ -1,5 +1,5 @@
 {
-	"name": "cz/framework",
+	"name": "czukowski/framework",
 	"type": "library",
 	"description": "Small PHP-based framework to help where needed and not get in the way where not",
 	"keywords": [],
