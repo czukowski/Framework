@@ -58,6 +58,9 @@ trait MethodAccess
 		throw new Exceptions\InvalidArgumentException('Call to undefined method: '.$method);
 	}
 
+	/**
+	 * Abstract methods declaration to ensure this trait is applied to the right kind of class.
+	 */
 	abstract protected function _getAccessParameters($method);
 	abstract public function erase($key = NULL);
 	abstract public function exists($key);

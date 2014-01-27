@@ -56,6 +56,9 @@ trait PropertyAccess
 		return $this->erase($key);
 	}
 
+	/**
+	 * Abstract methods declaration to ensure this trait is applied to the right kind of class.
+	 */
 	abstract public function erase($key = NULL);
 	abstract public function exists($key);
 	abstract public function get($key, $default = NULL);
