@@ -38,21 +38,20 @@ class EventObjectTest extends PHPUnit\Testcase
 
 	public function provideAddEvent()
 	{
-		$this->setupObject();
-		$callback = array($this->object, 'eventHandler1');
+		list ($callback1) = $this->createCallbacks();
 		$factory = new Callbacks\CallbackFactory;
-		$callbackObject = $factory->createCallback($callback);
+		$callbackObject = $factory->createCallback($callback1);
 		return array(
 			// Test adding two events of the same type.
 			array(
 				array(
-					array('event1', $callback),
-					array('event2', $callback),
-					array('event1', $callback),
+					array('event1', $callback1),
+					array('event2', $callback1),
+					array('event1', $callback1),
 				),
 				array(
-					'event1' => array($callback, $callback),
-					'event2' => array($callback),
+					'event1' => array($callback1, $callback1),
+					'event2' => array($callback1),
 				),
 			),
 			// Test adding event handler of a Framework's Callback type.
@@ -89,29 +88,28 @@ class EventObjectTest extends PHPUnit\Testcase
 
 	public function provideAddEvents()
 	{
-		$this->setupObject();
-		$callback = array($this->object, 'eventHandler1');
+		list ($callback1) = $this->createCallbacks();
 		return array(
 			array(
 				// Test adding multiple event handlers from an array.
 				array(
-					'event1' => $callback,
-					'event2' => $callback,
+					'event1' => $callback1,
+					'event2' => $callback1,
 				),
 				array(
-					'event1' => array($callback),
-					'event2' => array($callback),
+					'event1' => array($callback1),
+					'event2' => array($callback1),
 				),
 			),
 			array(
 				// Test adding multiple event handlers from a Traversable object.
 				new \ArrayObject(array(
-					'event2' => $callback,
-					'event3' => $callback,
+					'event2' => $callback1,
+					'event3' => $callback1,
 				)),
 				array(
-					'event2' => array($callback),
-					'event3' => array($callback),
+					'event2' => array($callback1),
+					'event3' => array($callback1),
 				),
 			),
 			// Test adding event handlers from neither array or object.
@@ -149,9 +147,7 @@ class EventObjectTest extends PHPUnit\Testcase
 
 	public function provideRemoveEvent()
 	{
-		$this->setupObject();
-		$callback1 = array($this->object, 'eventHandler1');
-		$callback2 = array($this->object, 'eventHandler2');
+		list ($callback1, $callback2) = $this->createCallbacks();
 		$factory = new Callbacks\CallbackFactory;
 		$callback1Object = $factory->createCallback($callback1);
 		return array(
@@ -216,9 +212,7 @@ class EventObjectTest extends PHPUnit\Testcase
 
 	public function provideRemoveEvents()
 	{
-		$this->setupObject();
-		$callback1 = array($this->object, 'eventHandler1');
-		$callback2 = array($this->object, 'eventHandler2');
+		list ($callback1, $callback2) = $this->createCallbacks();
 		return array(
 			// Test remove some event handlers.
 			array(
@@ -292,9 +286,7 @@ class EventObjectTest extends PHPUnit\Testcase
 
 	public function provideRemoveAllEvents()
 	{
-		$this->setupObject();
-		$callback1 = array($this->object, 'eventHandler1');
-		$callback2 = array($this->object, 'eventHandler2');
+		list ($callback1, $callback2) = $this->createCallbacks();
 		return array(
 			// Test remove all events of type 'event1'.
 			array(
@@ -348,15 +340,13 @@ class EventObjectTest extends PHPUnit\Testcase
 
 	public function provideFireEvent()
 	{
-		$this->setupObject();
-		$callback1 = array($this->object, 'eventHandler1');
-		$callback2 = array($this->object, 'eventHandler2');
+		list ($callback1, $callback2, $handler) = $this->createCallbacks();
 		return array(
 			// Test firing event when no event handlers are set.
 			array(
 				array(),
 				array('event1', array('param1', 'param2')),
-				$this->object,
+				$handler,
 				array(),
 			),
 			// Test firing event.
@@ -366,7 +356,7 @@ class EventObjectTest extends PHPUnit\Testcase
 					'event2' => array($callback1),
 				),
 				array('event2', array('param1', 'param2')),
-				$this->object,
+				$handler,
 				array(
 					array('eventHandler1', 'param1', 'param2'),
 				),
@@ -378,7 +368,7 @@ class EventObjectTest extends PHPUnit\Testcase
 					'event2' => array($callback1),
 				),
 				array('event1', array('param1', 'param2')),
-				$this->object,
+				$handler,
 				array(
 					array('eventHandler1', 'param1', 'param2'),
 					array('eventHandler2', 'param1', 'param2'),
@@ -411,9 +401,7 @@ class EventObjectTest extends PHPUnit\Testcase
 
 	public function provideFireEventBinded()
 	{
-		$this->setupObject();
-		$callback1 = array($this->object, 'eventHandler1');
-		$callback2 = array($this->object, 'eventHandler2');
+		list ($callback1, $callback2, $handler) = $this->createCallbacks();
 		return array(
 			// Test firing event on multiple copies of event handler.
 			array(
@@ -422,13 +410,23 @@ class EventObjectTest extends PHPUnit\Testcase
 					'event2' => array($callback1),
 				),
 				array('event1', array('param1', 'param2')),
-				$this->object,
+				$handler,
 				array(
 					array('eventHandler1', 'param1', 'param2'),
 					array('eventHandler2', 'param1', 'param2'),
 					array('eventHandler1', 'param1', 'param2'),
 				),
 			),
+		);
+	}
+
+	private function createCallbacks()
+	{
+		$this->setupObject();
+		return array(
+			array($this->object, 'eventHandler1'),
+			array($this->object, 'eventHandler2'),
+			$this->object,
 		);
 	}
 
