@@ -1,12 +1,11 @@
 <?php
-namespace Cz\Framework\Object;
-use Cz\Framework;
+namespace Cz\Framework\Objects;
 
 /**
  * AllAccessObject
  * 
  * @package    Framework
- * @category   Object
+ * @category   Objects
  * @author     Korney Czukowski
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License

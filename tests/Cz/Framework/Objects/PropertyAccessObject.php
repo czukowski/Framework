@@ -1,16 +1,16 @@
 <?php
-namespace Cz\Framework\Object;
+namespace Cz\Framework\Objects;
 
 /**
- * MethodAccessObject
+ * PropertyAccessObject
  * 
  * @package    Framework
- * @category   Object
+ * @category   Objects
  * @author     Korney Czukowski
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-class MethodAccessObject extends BaseObject
+class PropertyAccessObject extends BaseObject
 {
-	use MethodAccess;
+	use PropertyAccess;
 }

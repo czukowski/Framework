@@ -1,29 +1,29 @@
 <?php
-namespace Cz\Framework\Object;
+namespace Cz\Framework\Objects;
 
 /**
- * PropertyAccess
+ * ArrayAccess
  * 
- * Used to provide property access to the Object. See examples:
+ * Used to provide array access to the Object. See examples:
  * 
- *   - `$object->key` equals to `$object->get('key')`
- *   - `$object->key = 'value'` equals to `$object->set('key', 'value')`
- *   - `isset($object->key)` equals to `$object->exists('key')`
- *   - `unset($object->key)` equals to `$object->erase('key')`
+ *   - `$object['key']` equals to `$object->get('key')`
+ *   - `$object['key'] = 'value'` equals to `$object->set('key', 'value')`
+ *   - `isset($object['key'])` equals to `$object->exists('key')`
+ *   - `unset($object['key'])` equals to `$object->erase('key')`
  * 
  * @package    Framework
- * @category   Object
+ * @category   Objects
  * @author     Korney Czukowski
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-trait PropertyAccess
+trait ArrayAccess
 {
 	/**
 	 * @param   string  $key
 	 * @return  boolean
 	 */
-	public function __isset($key)
+	public function offsetExists($key)
 	{
 		return $this->exists($key);
 	}
@@ -32,7 +32,7 @@ trait PropertyAccess
 	 * @param   string  $key
 	 * @return  mixed
 	 */
-	public function __get($key)
+	public function offsetGet($key)
 	{
 		return $this->get($key);
 	}
@@ -42,7 +42,7 @@ trait PropertyAccess
 	 * @param   mixed   $value
 	 * @return  $this
 	 */
-	public function __set($key, $value)
+	public function offsetSet($key, $value)
 	{
 		return $this->set($key, $value);
 	}
@@ -51,7 +51,7 @@ trait PropertyAccess
 	 * @param   string  $key
 	 * @return  $this
 	 */
-	public function __unset($key)
+	public function offsetUnset($key)
 	{
 		return $this->erase($key);
 	}

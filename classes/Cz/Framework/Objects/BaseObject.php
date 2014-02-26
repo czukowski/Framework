@@ -1,5 +1,5 @@
 <?php
-namespace Cz\Framework\Object;
+namespace Cz\Framework\Objects;
 use Cz\Framework\Exceptions;
 
 /**
@@ -21,7 +21,7 @@ use Cz\Framework\Exceptions;
  * method access, or even all of them together. See `Cz\Framework\Object` namespace for the details.
  * 
  * @package    Framework
- * @category   Entities
+ * @category   Objects
  * @author     Korney Czukowski
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
