@@ -12,5 +12,6 @@ namespace Cz\Framework\Objects;
  */
 class MethodAccessObject extends BaseObject
 {
+	use CamelCaseFormat;
 	use MethodAccess;
 }

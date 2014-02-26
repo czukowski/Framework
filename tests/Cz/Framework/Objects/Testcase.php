@@ -14,6 +14,11 @@ use Cz\PHPUnit;
 abstract class Testcase extends PHPUnit\Testcase
 {
 	/**
+	 * @var  CamelCaseFormatObject  Helper object to format custom access method names.
+	 */
+	private $format;
+
+	/**
 	 * Data provider for the most of the tests here.
 	 */
 	public function provideItems()
@@ -41,16 +46,23 @@ abstract class Testcase extends PHPUnit\Testcase
 	 */
 	public function setUp()
 	{
+		$this->setupFormatObject();
 		$this->setupObject();
+	}
+
+	/**
+	 * Setup helper object to format custom access method names.
+	 */
+	protected function setupFormatObject()
+	{
+		$this->format = new CamelCaseFormatObject;
 	}
 
 	/**
 	 * Call original object method to determine custom method name.
 	 */
-	protected function getCustomMethodName($prefix, $name)
+	public function getCustomMethodName($prefix, $name)
 	{
-		return $this->getObjectMethod($this->object, '_getMethodName')
-			->invoke($this->object, $prefix, $name);
+		return $this->format->getMethodName($prefix, $name);
 	}
-
 }

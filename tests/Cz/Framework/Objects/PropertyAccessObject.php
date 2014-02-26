@@ -12,5 +12,6 @@ namespace Cz\Framework\Objects;
  */
 class PropertyAccessObject extends BaseObject
 {
+	use CamelCaseFormat;
 	use PropertyAccess;
 }

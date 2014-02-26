@@ -12,5 +12,6 @@ namespace Cz\Framework\Objects;
  */
 class ArrayAccessObject extends BaseObject implements \ArrayAccess, \Countable
 {
+	use CamelCaseFormat;
 	use ArrayAccess;
 }

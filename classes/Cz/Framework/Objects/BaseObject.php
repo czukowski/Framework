@@ -26,7 +26,7 @@ use Cz\Framework\Exceptions;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-class BaseObject
+abstract class BaseObject
 {
 	/**
 	 * @var  array
@@ -170,59 +170,6 @@ class BaseObject
 	}
 
 	/**
-	 * Returns the name of a custom access method:
-	 * 
-	 *     // Returns 'getSomething'
-	 *     $this->_getMethodName('get', 'something');
-	 * 
-	 * Child classes may override this method or use a trait that will do it for another
-	 * method naming convention. In this case, be sure to override `_getAccessParameters()`
-	 * method accordingly.
-	 * 
-	 * @param   string  $type
-	 * @param   string  $name
-	 * @return  string
-	 */
-	protected function _getMethodName($type, $name)
-	{
-		return $type.ucfirst($name);
-	}
-
-	/**
-	 * Returns access type and object key from the custom access method name:
-	 * 
-	 *     // Returns ['get', 'something']
-	 *     $this->_getAccessParameters('getSomething');
-	 * 
-	 * Child classes may override this method or use a trait that will do it for another
-	 * method naming convention. In this case, be sure to override `_getMethodName()`
-	 * method accordingly.
-	 * 
-	 * @param   string  $method
-	 * @return  array
-	 */
-	protected function _getAccessParameters($method)
-	{
-		if (strpos($method, 'get') === 0)
-		{
-			return array('get', lcfirst(substr($method, 3)));
-		}
-		elseif (strpos($method, 'set') === 0)
-		{
-			return array('set', lcfirst(substr($method, 3)));
-		}
-		elseif (strpos($method, 'exists') === 0)
-		{
-			return array('exists', lcfirst(substr($method, 6)));
-		}
-		elseif (strpos($method, 'erase') === 0)
-		{
-			return array('erase', lcfirst(substr($method, 5)));
-		}
-		return array(NULL, NULL);
-	}
-
-	/**
 	 * The "actual" issetter method. Intended to be called by the public generic issetter
 	 * or the custom methods.
 	 * 
@@ -281,4 +228,35 @@ class BaseObject
 		unset($this->container[$key]);
 		return $this;
 	}
+
+	/**
+	 * Returns the name of a custom access method, for example:
+	 * 
+	 *     // Returns 'getSomething'
+	 *     $this->_getMethodName('get', 'something');
+	 * 
+	 * Child classes may override this method or use a trait that will do it using a naming
+	 * convention. This is a complementary method to `_getAccessParameters()`, which does the
+	 * reverse thing.
+	 * 
+	 * @param   string  $type
+	 * @param   string  $name
+	 * @return  string
+	 */
+	abstract protected function _getMethodName($type, $name);
+
+	/**
+	 * Returns access type and object key from the custom access method name, for example:
+	 * 
+	 *     // Returns ['get', 'something']
+	 *     $this->_getAccessParameters('getSomething');
+	 * 
+	 * Child classes may override this method or use a trait that will do it using a naming
+	 * convention. This is a complementary method to `_getMethodName()`, which does the
+	 * reverse thing.
+	 * 
+	 * @param   string  $method
+	 * @return  array
+	 */
+	abstract protected function _getAccessParameters($method);
 }

@@ -12,6 +12,7 @@ namespace Cz\Framework\Objects;
  */
 class AllAccessObject extends BaseObject implements \ArrayAccess
 {
+	use CamelCaseFormat;
 	use ArrayAccess;
 	use MethodAccess;
 	use PropertyAccess;

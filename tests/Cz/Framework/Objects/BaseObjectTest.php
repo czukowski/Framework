@@ -229,13 +229,16 @@ class BaseObjectTest extends Testcase
 	/**
 	 * Setup fixture with mocked custom methods, for custom method tests (ie. `getSomething()`,
 	 * `setStuff()`, etc) automatically called by the generic access methods.
+	 * 
+	 * Also mock abstract `_getMethodName()` and `_getAccessParameters()` methods to use the
+	 * helper object when called.
 	 */
 	public function setupCustomMethods($prefix, $items)
 	{
 		$this->callbackArguments = array();
 		$methods = $this->getMockMethods($prefix, $items);
 		$this->setupMock(array(
-			'methods' => $methods,
+			'methods' => array_merge($methods, array('_getMethodName', '_getAccessParameters')),
 		));
 		foreach ($methods as $method)
 		{
@@ -243,6 +246,9 @@ class BaseObjectTest extends Testcase
 				->method($method)
 				->will($this->returnCallback(array($this, 'callback'.$method)));
 		}
+		$this->object->expects($this->any())
+			->method('_getMethodName')
+			->will($this->returnCallback(array($this, 'getCustomMethodName')));
 	}
 
 	/**
@@ -265,5 +271,14 @@ class BaseObjectTest extends Testcase
 	public function __call($method, $args)
 	{
 		$this->callbackArguments[] = array($method, $args);
+	}
+
+	/**
+	 * Setup mocked base object fixture.
+	 */
+	public function setUp()
+	{
+		$this->setupFormatObject();
+		$this->setupMock();
 	}
 }
