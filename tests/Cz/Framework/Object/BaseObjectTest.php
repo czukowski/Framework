@@ -1,5 +1,5 @@
 <?php
-namespace Cz\Framework;
+namespace Cz\Framework\Object;
 use Cz\Framework\Exceptions;
 
 /**
@@ -11,9 +11,9 @@ use Cz\Framework\Exceptions;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  * 
- * @property  ArrayObject  $object
+ * @property  BaseObject  $object
  */
-class ObjectTest extends Object\Testcase
+class BaseObjectTest extends Testcase
 {
 	/**
 	 * Tests generic access methods by asserting key not exists at first, then

@@ -1,9 +1,9 @@
 <?php
-namespace Cz\Framework;
+namespace Cz\Framework\Object;
 use Cz\Framework\Exceptions;
 
 /**
- * Object
+ * BaseObject
  * 
  * This class provides a generic container for multiple key-value pairs. Generic access methods
  * are provided: `get($key, $default)`, `set($key, $value)`, `exists($key)` and `erase($key)`.
@@ -26,7 +26,7 @@ use Cz\Framework\Exceptions;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-class Object
+class BaseObject
 {
 	/**
 	 * @var  array

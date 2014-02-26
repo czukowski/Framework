@@ -1,6 +1,5 @@
 <?php
 namespace Cz\Framework\Object;
-use Cz\Framework;
 
 /**
  * AllAccessObject
@@ -11,7 +10,7 @@ use Cz\Framework;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-class AllAccessObject extends Framework\Object implements \ArrayAccess
+class AllAccessObject extends BaseObject implements \ArrayAccess
 {
 	use ArrayAccess;
 	use MethodAccess;

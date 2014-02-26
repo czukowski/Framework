@@ -1,6 +1,5 @@
 <?php
 namespace Cz\Framework\Object;
-use Cz\Framework;
 
 /**
  * PropertyAccessObject
@@ -11,7 +10,7 @@ use Cz\Framework;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-class PropertyAccessObject extends Framework\Object
+class PropertyAccessObject extends BaseObject
 {
 	use PropertyAccess;
 }
