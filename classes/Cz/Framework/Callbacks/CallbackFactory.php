@@ -50,11 +50,11 @@ class CallbackFactory
 	/**
 	 * @param   string  $callback
 	 * @param   array   $arguments
-	 * @return  Constructor
+	 * @return  ConstructorCallback
 	 */
 	protected function createConstructor($callback, $arguments)
 	{
-		return new Constructor($callback, $arguments);
+		return new ConstructorCallback($callback, $arguments);
 	}
 
 	/**
@@ -70,20 +70,20 @@ class CallbackFactory
 	/**
 	 * @param   mixed  $callback
 	 * @param   array  $arguments
-	 * @return  Method
+	 * @return  MethodCallback
 	 */
 	protected function createMethod($callback, $arguments)
 	{
-		return new Method($callback, $arguments);
+		return new MethodCallback($callback, $arguments);
 	}
 
 	/**
 	 * @param   object  $callback
 	 * @param   array   $arguments
-	 * @return  Method
+	 * @return  MethodCallback
 	 */
 	protected function createObject($callback, $arguments)
 	{
-		return new Object($callback, $arguments);
+		return new ObjectCallback($callback, $arguments);
 	}
 }

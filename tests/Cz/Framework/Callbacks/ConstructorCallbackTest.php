@@ -2,7 +2,7 @@
 namespace Cz\Framework\Callbacks;
 
 /**
- * ConstructorTest
+ * ConstructorCallbackTest
  * 
  * Tests that the created objects are instances of the callback classnames.
  * 
@@ -12,9 +12,9 @@ namespace Cz\Framework\Callbacks;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  * 
- * @property  Constructor  $object
+ * @property  ConstructorCallback  $object
  */
-class ConstructorTest extends Testcase
+class ConstructorCallbackTest extends Testcase
 {
 	/**
 	 * @dataProvider  provideInvoke

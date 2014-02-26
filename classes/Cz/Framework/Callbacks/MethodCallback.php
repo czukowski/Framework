@@ -3,7 +3,7 @@ namespace Cz\Framework\Callbacks;
 use Cz\Framework\Exceptions;
 
 /**
- * Method
+ * MethodCallback
  * 
  * This type of the callback, when invoked, calls a function or method using the specified
  * arguments and returns the result. The following callback arguments are allowed:
@@ -21,7 +21,7 @@ use Cz\Framework\Exceptions;
  * 
  * @property  mixed  $callback  Callback to method.
  */
-class Method extends Callback
+class MethodCallback extends Callback
 {
 	/**
 	 * @param  mixed  $callback

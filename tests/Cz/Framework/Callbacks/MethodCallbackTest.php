@@ -2,7 +2,7 @@
 namespace Cz\Framework\Callbacks;
 
 /**
- * MethodTest
+ * MethodCallbackTest
  * 
  * Tests the Method Callback invocation return values. If an object is expected as the return
  * value, its type is checked, other return types are compared to the expected return values.
@@ -13,9 +13,9 @@ namespace Cz\Framework\Callbacks;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  * 
- * @property  Method  $object
+ * @property  MethodCallback  $object
  */
-class MethodTest extends Testcase
+class MethodCallbackTest extends Testcase
 {
 	/**
 	 * @dataProvider  provideInvoke
@@ -40,7 +40,7 @@ class MethodTest extends Testcase
 	{
 		return array(
 			array(array($this, 'callbackReturnNull'), array(), NULL),
-			array(array($this, 'callbackReturnSelf'), array(), 'Cz\Framework\Callbacks\MethodTest'),
+			array(array($this, 'callbackReturnSelf'), array(), 'Cz\Framework\Callbacks\MethodCallbackTest'),
 			array(array($this, 'callbackReturnArgument'), array(TRUE), TRUE),
 			array(array($this, 'callbackReturnArgument'), array(array('foo' => 'bar')), array('foo' => 'bar')),
 			array('PHPUnit_Framework_TestCase::setUpBeforeClass', array(), NULL),

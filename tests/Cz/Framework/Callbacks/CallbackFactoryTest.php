@@ -48,14 +48,14 @@ class CallbackFactoryTest extends PHPUnit\Testcase
 	public function provideCreateCallback()
 	{
 		return array(
-			array(get_class($this), 'Cz\Framework\Callbacks\Constructor'),
-			array($this->getClassName(), 'Cz\Framework\Callbacks\Constructor'),
-			array('ArrayObject', 'Cz\Framework\Callbacks\Constructor'),
-			array('count', 'Cz\Framework\Callbacks\Method'),
-			array('PHPUnit_Framework_TestCase::any', 'Cz\Framework\Callbacks\Method'),
-			array(array($this, 'provideCreateCallback'), 'Cz\Framework\Callbacks\Method'),
-			array(function() {return TRUE;}, 'Cz\Framework\Callbacks\Method'),
-			array($this, 'Cz\Framework\Callbacks\Object'),
+			array(get_class($this), 'Cz\Framework\Callbacks\ConstructorCallback'),
+			array($this->getClassName(), 'Cz\Framework\Callbacks\ConstructorCallback'),
+			array('ArrayObject', 'Cz\Framework\Callbacks\ConstructorCallback'),
+			array('count', 'Cz\Framework\Callbacks\MethodCallback'),
+			array('PHPUnit_Framework_TestCase::any', 'Cz\Framework\Callbacks\MethodCallback'),
+			array(array($this, 'provideCreateCallback'), 'Cz\Framework\Callbacks\MethodCallback'),
+			array(function() {return TRUE;}, 'Cz\Framework\Callbacks\MethodCallback'),
+			array($this, 'Cz\Framework\Callbacks\ObjectCallback'),
 			array(3.14, FALSE),
 		);
 	}

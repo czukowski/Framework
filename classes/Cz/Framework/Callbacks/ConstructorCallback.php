@@ -3,7 +3,7 @@ namespace Cz\Framework\Callbacks;
 use Cz\Framework\Exceptions;
 
 /**
- * Constructor
+ * ConstructorCallback
  * 
  * This type of the callback, when invoked, creates and returns a new class instance
  * of the given type, optionally using arguments.
@@ -16,7 +16,7 @@ use Cz\Framework\Exceptions;
  * 
  * @property  string  $callback  Classname to create an object from.
  */
-class Constructor extends Callback
+class ConstructorCallback extends Callback
 {
 	/**
 	 * @param  string  $classname

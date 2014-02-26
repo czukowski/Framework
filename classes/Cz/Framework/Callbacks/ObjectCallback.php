@@ -3,7 +3,7 @@ namespace Cz\Framework\Callbacks;
 use Cz\Framework\Exceptions;
 
 /**
- * Method
+ * ObjectCallback
  * 
  * This type of the callback, when invoked, returns the object instance it contains.
  * 
@@ -15,7 +15,7 @@ use Cz\Framework\Exceptions;
  * 
  * @property  object  $object  Object to return when invoked.
  */
-class Object extends Callback
+class ObjectCallback extends Callback
 {
 	/**
 	 * @param  object  $object

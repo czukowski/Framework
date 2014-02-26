@@ -2,7 +2,7 @@
 namespace Cz\Framework\Callbacks;
 
 /**
- * ObjectTest
+ * ObjectCallbackTest
  * 
  * Tests that the same object is returned when the Callback is invoked.
  * 
@@ -12,9 +12,9 @@ namespace Cz\Framework\Callbacks;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  * 
- * @property  Object  $object
+ * @property  ObjectCallback  $object
  */
-class ObjectTest extends Testcase
+class ObjectCallbackTest extends Testcase
 {
 	/**
 	 * @expectedException  Cz\Framework\Exceptions\NotSupportedException
