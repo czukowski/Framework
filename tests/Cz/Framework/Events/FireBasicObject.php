@@ -2,7 +2,7 @@
 namespace Cz\Framework\Events;
 
 /**
- * EventsObject
+ * FireBasicObject
  * 
  * @package    Framework
  * @category   Events
@@ -10,7 +10,7 @@ namespace Cz\Framework\Events;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-class EventsObject extends TestEventHandlers
+class FireBasicObject extends TestEventHandlers
 {
-	use Events;
+	use Events, FireBasic;
 }

@@ -15,7 +15,7 @@ use Cz\Framework\Events;
  */
 abstract class EventObject extends BaseObject
 {
-	use Events\Events;
+	use Events\Events, Events\FireBinded;
 
 	/**
 	 * Object getter method that fires 'before-get' and 'after-get' events.
@@ -28,11 +28,11 @@ abstract class EventObject extends BaseObject
 	protected function _get($key, $default = NULL)
 	{
 		$arguments = array($key, $default);
-		$this->fireEventBinded('before-get', $arguments);
+		$this->fireEvent('before-get', $arguments);
 		$value = func_num_args() > 1
 			? parent::_get($key, $default)
 			: parent::_get($key);
-		$this->fireEventBinded('after-get', $arguments);
+		$this->fireEvent('after-get', $arguments);
 		return $value;
 	}
 
@@ -46,9 +46,9 @@ abstract class EventObject extends BaseObject
 	 */
 	protected function _set($key, $value)
 	{
-		$this->fireEventBinded('before-set', func_get_args());
+		$this->fireEvent('before-set', func_get_args());
 		parent::_set($key, $value);
-		$this->fireEventBinded('after-set', func_get_args());
+		$this->fireEvent('after-set', func_get_args());
 		return $this;
 	}
 
@@ -61,9 +61,9 @@ abstract class EventObject extends BaseObject
 	 */
 	protected function _erase($key)
 	{
-		$this->fireEventBinded('before-erase', func_get_args());
+		$this->fireEvent('before-erase', func_get_args());
 		parent::_exists($key);
-		$this->fireEventBinded('after-erase', func_get_args());
+		$this->fireEvent('after-erase', func_get_args());
 		return $this;
 	}
 
@@ -76,9 +76,9 @@ abstract class EventObject extends BaseObject
 	 */
 	protected function _exists($key)
 	{
-		$this->fireEventBinded('before-exists', func_get_args());
+		$this->fireEvent('before-exists', func_get_args());
 		$value = parent::_exists($key);
-		$this->fireEventBinded('after-exists', func_get_args());
+		$this->fireEvent('after-exists', func_get_args());
 		return $value;
 	}
 

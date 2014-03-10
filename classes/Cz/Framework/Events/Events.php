@@ -154,13 +154,13 @@ trait Events
 	}
 
 	/**
-	 * Fires event of a specific type with specified arguments.
+	 * Basic method for firing events of specific types with specified arguments.
 	 * 
 	 * @param   string  $type       Event type to fire.
 	 * @param   array   $arguments  Arguments to send to event handlers.
 	 * @return  $this
 	 */
-	public function fireEvent($type, array $arguments)
+	protected function _fireEvent($type, array $arguments)
 	{
 		if (isset($this->_events[$type]))
 		{
@@ -170,18 +170,5 @@ trait Events
 			}
 		}
 		return $this;
-	}
-
-	/**
-	 * Fires event as normal, but adds `$this` reference to arguments list.
-	 * 
-	 * @param   string  $type       Event type to fire.
-	 * @param   array   $arguments  Arguments to send to event handlers.
-	 * @return  $this
-	 */
-	public function fireEventBinded($type, array $arguments)
-	{
-		$arguments[] = $this;
-		return $this->fireEvent($type, $arguments);
 	}
 }
