@@ -56,7 +56,7 @@ class EventObjectTest extends Testcase
 			array(
 				array('any'),
 				array(
-					array('before', 'any'),
+					array('before', 'any', NULL),
 				),
 			),
 		);

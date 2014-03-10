@@ -27,11 +27,12 @@ abstract class EventObject extends BaseObject
 	 */
 	protected function _get($key, $default = NULL)
 	{
-		$this->fireEventBinded('before-get', func_get_args());
+		$arguments = array($key, $default);
+		$this->fireEventBinded('before-get', $arguments);
 		$value = func_num_args() > 1
 			? parent::_get($key, $default)
 			: parent::_get($key);
-		$this->fireEventBinded('after-get', func_get_args());
+		$this->fireEventBinded('after-get', $arguments);
 		return $value;
 	}
 
