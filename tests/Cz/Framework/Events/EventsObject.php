@@ -2,7 +2,7 @@
 namespace Cz\Framework\Events;
 
 /**
- * EventObject
+ * EventsObject
  * 
  * @package    Framework
  * @category   Events

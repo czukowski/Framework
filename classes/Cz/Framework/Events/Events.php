@@ -4,7 +4,7 @@ use Cz\Framework\Callbacks,
 	Cz\Framework\Exceptions;
 
 /**
- * Event
+ * Events
  * 
  * Used to provide event listening and firing methods.
  * 
