@@ -5,7 +5,7 @@ use Cz\PHPUnit,
 	Cz\Framework\Exceptions;
 
 /**
- * EventObjectTest
+ * EventsObjectTest
  * 
  * @package    Framework
  * @category   Events
@@ -13,9 +13,9 @@ use Cz\PHPUnit,
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  * 
- * @property  EventObject  $object
+ * @property  EventsObject  $object
  */
-class EventObjectTest extends PHPUnit\Testcase
+class EventsObjectTest extends PHPUnit\Testcase
 {
 	/**
 	 * Tests adding event by calling the `addEvent()` method several times and then

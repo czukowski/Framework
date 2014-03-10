@@ -15,7 +15,7 @@ use Cz\Framework\Events;
  */
 abstract class EventObject extends BaseObject
 {
-	use Events\Event;
+	use Events\Events;
 
 	/**
 	 * Object getter method that fires 'before-get' and 'after-get' events.

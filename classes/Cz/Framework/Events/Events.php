@@ -14,7 +14,7 @@ use Cz\Framework\Callbacks,
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-trait Event
+trait Events
 {
 	/**
 	 * @var  array  Event handlers container.

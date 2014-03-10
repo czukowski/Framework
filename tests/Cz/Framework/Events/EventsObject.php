@@ -10,9 +10,9 @@ namespace Cz\Framework\Events;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-class EventObject
+class EventsObject
 {
-	use Event;
+	use Events;
 
 	public $callbackArguments = array();
 
