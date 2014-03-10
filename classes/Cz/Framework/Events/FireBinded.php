@@ -26,4 +26,9 @@ trait FireBinded
 		$arguments[] = $this;
 		return $this->_fireEvent($type, $arguments);
 	}
+
+	/**
+	 * Abstract method to prevent this trait being used by incompatible objects.
+	 */
+	abstract protected function _fireEvent($type, array $arguments);
 }
