@@ -1,6 +1,5 @@
 <?php
 namespace Cz\Framework\Exceptions;
-use Cz\Framework;
 
 /**
  * InvalidArgumentException
@@ -11,5 +10,5 @@ use Cz\Framework;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-class InvalidArgumentException extends \InvalidArgumentException implements Framework\Exception
+class InvalidArgumentException extends \InvalidArgumentException implements Exception
 {}

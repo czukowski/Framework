@@ -1,5 +1,5 @@
 <?php
-namespace Cz\Framework;
+namespace Cz\Framework\Exceptions;
 
 /**
  * Exception interface.
