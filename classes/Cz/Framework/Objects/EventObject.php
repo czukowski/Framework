@@ -5,7 +5,8 @@ use Cz\Framework\Events;
 /**
  * EventObject
  * 
- * Base object extension with events support.
+ * Base object extension with events support. This is more of an example of how can the base
+ * object be extended rather than any particularly practical class.
  * 
  * @package    Framework
  * @category   Objects
@@ -81,6 +82,4 @@ abstract class EventObject extends BaseObject
 		$this->fireEvent('after-exists', func_get_args());
 		return $value;
 	}
-
-	
 }
