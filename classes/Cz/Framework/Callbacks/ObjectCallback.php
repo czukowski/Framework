@@ -57,7 +57,7 @@ class ObjectCallback extends Callback
 	/**
 	 * @throws  Exceptions\NotSupportedException
 	 */
-	public function setArguments(array $arguments)
+	public function setArguments($arguments)
 	{
 		$this->throwException($arguments);
 	}

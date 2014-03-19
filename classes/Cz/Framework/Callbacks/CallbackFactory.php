@@ -18,12 +18,12 @@ class CallbackFactory
 	/**
 	 * Creates callback depending on argument types.
 	 * 
-	 * @param   string  $callback
-	 * @param   array   $arguments
+	 * @param   string  $callback   String to build callback from
+	 * @param   mixed   $arguments  Optional callback arguments: array or NULL
 	 * @return  CallbackInterface
 	 * @throws  Exceptions\NotSupportedException
 	 */
-	public function createCallback($callback, array $arguments = array())
+	public function createCallback($callback, $arguments = NULL)
 	{
 		if ($callback instanceof CallbackInterface)
 		{
@@ -49,7 +49,7 @@ class CallbackFactory
 
 	/**
 	 * @param   string  $callback
-	 * @param   array   $arguments
+	 * @param   mixed   $arguments
 	 * @return  ConstructorCallback
 	 */
 	protected function createConstructor($callback, $arguments)
@@ -59,7 +59,7 @@ class CallbackFactory
 
 	/**
 	 * @param   string  $callback
-	 * @param   array   $arguments
+	 * @param   mixed   $arguments
 	 * @return  CallbackInterface
 	 */
 	protected function createCopy($callback, $arguments)
@@ -69,7 +69,7 @@ class CallbackFactory
 
 	/**
 	 * @param   mixed  $callback
-	 * @param   array  $arguments
+	 * @param   mixed  $arguments
 	 * @return  MethodCallback
 	 */
 	protected function createMethod($callback, $arguments)
@@ -79,7 +79,7 @@ class CallbackFactory
 
 	/**
 	 * @param   object  $callback
-	 * @param   array   $arguments
+	 * @param   mixed   $arguments
 	 * @return  MethodCallback
 	 */
 	protected function createObject($callback, $arguments)

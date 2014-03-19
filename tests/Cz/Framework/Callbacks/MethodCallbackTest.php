@@ -39,6 +39,7 @@ class MethodCallbackTest extends Testcase
 	public function provideInvoke()
 	{
 		return array(
+			array(array($this, 'callbackReturnNull'), NULL, NULL),
 			array(array($this, 'callbackReturnNull'), array(), NULL),
 			array(array($this, 'callbackReturnSelf'), array(), 'Cz\Framework\Callbacks\MethodCallbackTest'),
 			array(array($this, 'callbackReturnArgument'), array(TRUE), TRUE),

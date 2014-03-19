@@ -24,10 +24,10 @@ interface CallbackInterface
 	/**
 	 * Set arguments for the callback.
 	 * 
-	 * @param   array  $arguments
+	 * @param   array|NULL  $arguments
 	 * @return  $this
 	 */
-	function setArguments(array $arguments);
+	function setArguments($arguments);
 
 	/**
 	 * Return "raw" callback object.

@@ -1,5 +1,6 @@
 <?php
 namespace Cz\Framework\Callbacks;
+use Cz\Framework\Exceptions;
 
 /**
  * Callback
@@ -15,7 +16,7 @@ namespace Cz\Framework\Callbacks;
 abstract class Callback implements CallbackInterface
 {
 	/**
-	 * @var  array
+	 * @var  array|NULL
 	 */
 	protected $arguments;
 	/**
@@ -32,7 +33,7 @@ abstract class Callback implements CallbackInterface
 	}
 
 	/**
-	 * @return  array
+	 * @return  array|NULL
 	 */
 	public function getArguments()
 	{
@@ -42,8 +43,11 @@ abstract class Callback implements CallbackInterface
 	/**
 	 * @return  $this
 	 */
-	public function setArguments(array $arguments)
+	public function setArguments($arguments)
 	{
+		if ($arguments !== NULL && ! is_array($arguments)) {
+			throw new Exceptions\InvalidArgumentException('Invalid callback arguments, expected array or NULL.');
+		}
 		$this->arguments = $arguments;
 		return $this;
 	}

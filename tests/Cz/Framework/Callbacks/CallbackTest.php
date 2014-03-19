@@ -57,6 +57,9 @@ class CallbackTest extends PHPUnit\Testcase
 				array(1, 2, 3),
 			),
 			array(
+				NULL,
+			),
+			array(
 				array(NULL),
 			),
 			array(
@@ -65,6 +68,25 @@ class CallbackTest extends PHPUnit\Testcase
 			array(
 				array(new \stdClass),
 			),
+		);
+	}
+
+	/**
+	 * @dataProvider       provideSetInvalidArguments
+	 * @expectedException  Cz\Framework\Exceptions\InvalidArgumentException
+	 */
+	public function testSetInvalidArguments($arguments)
+	{
+		$this->object->setArguments($arguments);
+	}
+
+	public function provideSetInvalidArguments()
+	{
+		return array(
+			array('not array'),
+			array(1),
+			array(FALSE),
+			array(TRUE),
 		);
 	}
 

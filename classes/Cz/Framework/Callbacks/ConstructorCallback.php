@@ -20,9 +20,9 @@ class ConstructorCallback extends Callback
 {
 	/**
 	 * @param  string  $classname
-	 * @param  array   $arguments
+	 * @param  mixed   $arguments
 	 */
-	public function __construct($classname, array $arguments = array())
+	public function __construct($classname, $arguments = NULL)
 	{
 		$this->validateCallback($classname);
 		$this->callback = $classname;
