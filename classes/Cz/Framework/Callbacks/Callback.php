@@ -45,7 +45,8 @@ abstract class Callback implements CallbackInterface
 	 */
 	public function setArguments($arguments)
 	{
-		if ($arguments !== NULL && ! is_array($arguments)) {
+		if ($arguments !== NULL && ! is_array($arguments))
+		{
 			throw new Exceptions\InvalidArgumentException('Invalid callback arguments, expected array or NULL.');
 		}
 		$this->arguments = $arguments;
