@@ -2,7 +2,7 @@
 namespace Cz\Framework\Exceptions;
 
 /**
- * NotSupportedException
+ * NotImplementedException
  * 
  * @package    Framework
  * @category   Exceptions
