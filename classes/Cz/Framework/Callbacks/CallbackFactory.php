@@ -64,7 +64,7 @@ class CallbackFactory
 	 */
 	protected function createCopy($callback, $arguments)
 	{
-		return $this->createCallback($callback->getCallback(), $arguments);
+		return $this->createCallback($callback->getCallback(), $arguments ? : $callback->getArguments());
 	}
 
 	/**
