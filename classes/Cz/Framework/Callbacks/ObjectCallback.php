@@ -19,10 +19,12 @@ class ObjectCallback extends Callback
 {
 	/**
 	 * @param  object  $object
+	 * @param  mixed   $arguments
 	 */
-	public function __construct($object)
+	public function __construct($object, $arguments = NULL)
 	{
 		$this->validateCallback($object);
+		$this->validateArguments($arguments);
 		$this->callback = $object;
 	}
 
@@ -39,10 +41,24 @@ class ObjectCallback extends Callback
 	}
 
 	/**
+	 * @param   mixed  $arguments
+	 * @throws  Exceptions\NotSupportedException
+	 */
+	private function validateArguments($arguments)
+	{
+		if ($arguments !== NULL)
+		{
+			throw new Exceptions\NotSupportedException('Object callback type does not support arguments.');
+		}
+	}
+
+	/**
+	 * @param   mixed  $arguments
 	 * @return  object
 	 */
-	public function invoke()
+	public function invoke($arguments = NULL)
 	{
+		$this->validateArguments($arguments);
 		return $this->callback;
 	}
 

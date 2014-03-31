@@ -1,5 +1,6 @@
 <?php
 namespace Cz\Framework\Callbacks;
+use Cz\Framework\Exceptions;
 
 /**
  * ObjectCallbackTest
@@ -44,6 +45,18 @@ class ObjectCallbackTest extends Testcase
 		$this->assertSame($object, $actual);
 	}
 
+	/**
+	 * @dataProvider       provideInvoke
+	 * @expectedException  Cz\Framework\Exceptions\NotSupportedException
+	 */
+	public function testInvokeWithArguments($object)
+	{
+		$this->setupObject(array(
+			'arguments' => array($object),
+		));
+		$this->object->invoke(array('any', 'arguments'));
+	}
+
 	public function provideInvoke()
 	{
 		return array(
@@ -55,14 +68,14 @@ class ObjectCallbackTest extends Testcase
 	public function provideConstruct()
 	{
 		return array(
-			// Invalid definitions.
-			array('PHPUnit_Framework_TestCase::any', TRUE),
-			array(array($this, 'provideConstruct'), TRUE),
-			// Object definitions.
-			array(new \stdClass, FALSE),
-			array($this, FALSE),
-			array($this->getMock('Cz\Entities\EntityInterface'), FALSE),
-			array(function() {return TRUE;}, FALSE),
+			// Invalid object callback definitions.
+			array('PHPUnit_Framework_TestCase::any', NULL, new Exceptions\InvalidArgumentException),
+			array(array($this, 'provideConstruct'), NULL, new Exceptions\InvalidArgumentException),
+			// Valid bject definitions.
+			array(new \stdClass, NULL, NULL),
+			array($this, NULL, NULL),
+			array($this->getMock('Cz\Entities\EntityInterface'), NULL, NULL),
+			array(function() {return TRUE;}, NULL, NULL),
 		);
 	}
 

@@ -25,6 +25,7 @@ class ConstructorCallback extends Callback
 	public function __construct($classname, $arguments = NULL)
 	{
 		$this->validateCallback($classname);
+		$this->validateArguments($arguments);
 		$this->callback = $classname;
 		$this->setArguments($arguments);
 	}
@@ -47,11 +48,25 @@ class ConstructorCallback extends Callback
 	}
 
 	/**
+	 * @param   mixed  $arguments
+	 * @throws  Exceptions\NotImplementedException
+	 */
+	private function validateArguments($arguments)
+	{
+		if ($arguments)
+		{
+			throw new Exceptions\NotImplementedException('Callback arguments are not supported.');
+		}
+	}
+
+	/**
+	 * @param   mixed  $arguments
 	 * @return  object
 	 */
-	public function invoke()
+	public function invoke($arguments = NULL)
 	{
 		// FIXME: implement constructor arguments.
+		$this->validateArguments($arguments);
 		return new $this->callback;
 	}
 }

@@ -108,9 +108,10 @@ class MethodCallback extends Callback
 	}
 
 	/**
+	 * @param   mixed  $arguments
 	 * @return  object
 	 */
-	public function invoke()
+	public function invoke($arguments = NULL)
 	{
 		$arguments = $this->getArguments();
 		return call_user_func_array($this->callback, $arguments ? : array());

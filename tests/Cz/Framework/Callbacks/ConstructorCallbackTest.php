@@ -1,5 +1,6 @@
 <?php
 namespace Cz\Framework\Callbacks;
+use Cz\Framework\Exceptions;
 
 /**
  * ConstructorCallbackTest
@@ -37,19 +38,23 @@ class ConstructorCallbackTest extends Testcase
 
 	public function provideConstruct()
 	{
-		// [callback definition, expect exception?]
+		// [callback definition, callback arguments, expected exception]
 		return array(
-			// Invalid definitions.
-			array('PHPUnit_Framework_TestCase::any', TRUE),
-			array(array($this, 'provideConstruct'), TRUE),
-			array(new \stdClass, TRUE),
-			array(function() {return TRUE;}, TRUE),
-			// Valid classname definitions.
-			array(get_class($this), FALSE),
-			array($this->getClassName(), FALSE),
-			array('ArrayObject', FALSE),
+			// Invalid classname definitions.
+			array('PHPUnit_Framework_TestCase::any', NULL, new Exceptions\InvalidArgumentException),
+			array(array($this, 'provideConstruct'), NULL, new Exceptions\InvalidArgumentException),
+			array(new \stdClass, NULL, new Exceptions\InvalidArgumentException),
+			array(function() {return TRUE;}, NULL, new Exceptions\InvalidArgumentException),
+			// Valid classname definitions, but unsupported arguments (unsupported).
+			array(get_class($this), array(1, 2), new Exceptions\NotImplementedException),
+			array($this->getClassName(), array(1), new Exceptions\NotImplementedException),
+			// Valid classname definitions and arguments.
+			array(get_class($this), NULL, NULL),
+			array($this->getClassName(), NULL, NULL),
+			array('ArrayObject', NULL, NULL),
+			array('ArrayObject', array(), NULL),
 			// Valid classname definition, but not instanciable.
-			array('Cz\Framework\Callbacks\CallbackInterface', TRUE),
+			array('Cz\Framework\Callbacks\CallbackInterface', NULL, new Exceptions\InvalidArgumentException),
 		);
 	}
 }

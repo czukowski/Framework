@@ -38,6 +38,8 @@ interface CallbackInterface
 
 	/**
 	 * Invoke callback and return the resulting value.
+	 * 
+	 * @param  array|NULL  $arguments  Optional arguments.
 	 */
-	function invoke();
+	function invoke($arguments = NULL);
 }

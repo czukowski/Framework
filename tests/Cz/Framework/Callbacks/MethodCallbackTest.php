@@ -1,5 +1,6 @@
 <?php
 namespace Cz\Framework\Callbacks;
+use Cz\Framework\Exceptions;
 
 /**
  * MethodCallbackTest
@@ -68,36 +69,37 @@ class MethodCallbackTest extends Testcase
 
 	public function provideConstruct()
 	{
+		// [callback definition, callback arguments, expected exception]
 		return array(
 			// Invalid definitions.
-			array(3.14, TRUE),
-			array(NULL, TRUE),
+			array(3.14, NULL, new Exceptions\InvalidArgumentException),
+			array(NULL, NULL, new Exceptions\InvalidArgumentException),
 			// String definitions.
-			array('count', FALSE),
-			array('PHPUnit_Framework_TestCase::any', FALSE),
-			array('this_function_does_not_exists_hopefully', TRUE),
-			array('ThisClassDoesNotExists::this_function_does_not_exists', TRUE),
-			array('Cz\Framework\Callbacks\MethodTest', TRUE),
-			array('Cz\Framework\Callbacks\ThisClassDoesNotExists', TRUE),
+			array('count', NULL, NULL),
+			array('PHPUnit_Framework_TestCase::any', NULL, NULL),
+			array('this_function_does_not_exists_hopefully', NULL, new Exceptions\InvalidArgumentException),
+			array('ThisClassDoesNotExists::this_function_does_not_exists', NULL, new Exceptions\InvalidArgumentException),
+			array('Cz\Framework\Callbacks\MethodTest', NULL, new Exceptions\InvalidArgumentException),
+			array('Cz\Framework\Callbacks\ThisClassDoesNotExists', NULL, new Exceptions\InvalidArgumentException),
 			// Array definitions.
-			array(array(), TRUE),
-			array(array('single argument'), TRUE),
-			array(array(NULL, 'parameter'), TRUE),
-			array(array(TRUE, 'parameter'), TRUE),
-			array(array(FALSE, 'parameter'), TRUE),
-			array(array(3.14, 'parameter'), TRUE),
-			array(array('string', 'parameter'), TRUE),
-			array(array($this, TRUE), TRUE),
-			array(array($this, FALSE), TRUE),
-			array(array($this, NULL), TRUE),
-			array(array($this, 5.16), TRUE),
-			array(array(new \stdClass, 'stdClassDoesNotHaveMethods'), TRUE),
-			array(array($this, 'provideConstruct'), FALSE),
+			array(array(), NULL, new Exceptions\InvalidArgumentException),
+			array(array('single argument'), NULL, new Exceptions\InvalidArgumentException),
+			array(array(NULL, 'parameter'), NULL, new Exceptions\InvalidArgumentException),
+			array(array(TRUE, 'parameter'), NULL, new Exceptions\InvalidArgumentException),
+			array(array(FALSE, 'parameter'), NULL, new Exceptions\InvalidArgumentException),
+			array(array(3.14, 'parameter'), NULL, new Exceptions\InvalidArgumentException),
+			array(array('string', 'parameter'), NULL, new Exceptions\InvalidArgumentException),
+			array(array($this, TRUE), NULL, new Exceptions\InvalidArgumentException),
+			array(array($this, FALSE), NULL, new Exceptions\InvalidArgumentException),
+			array(array($this, NULL), NULL, new Exceptions\InvalidArgumentException),
+			array(array($this, 5.16), NULL, new Exceptions\InvalidArgumentException),
+			array(array(new \stdClass, 'stdClassDoesNotHaveMethods'), NULL, new Exceptions\InvalidArgumentException),
+			array(array($this, 'provideConstruct'), NULL, NULL),
 			// Object definitions.
-			array(new \stdClass, TRUE),
-			array($this, TRUE),
-			array($this->getMock('Cz\Entities\EntityInterface'), TRUE),
-			array(function() {return TRUE;}, FALSE),
+			array(new \stdClass, NULL, new Exceptions\InvalidArgumentException),
+			array($this, NULL, new Exceptions\InvalidArgumentException),
+			array($this->getMock('Cz\Entities\EntityInterface'), NULL, new Exceptions\InvalidArgumentException),
+			array(function() {return TRUE;}, NULL, NULL),
 		);
 	}
 }

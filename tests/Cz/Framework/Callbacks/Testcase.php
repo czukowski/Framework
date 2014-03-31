@@ -21,14 +21,11 @@ abstract class Testcase extends PHPUnit\Testcase
 	/**
 	 * @dataProvider  provideConstruct
 	 */
-	public function testConstruct($callback, $expectException)
+	public function testConstruct($callback, $arguments, $expected)
 	{
-		if ($expectException)
-		{
-			$this->setExpectedException('Cz\Framework\Exceptions\InvalidArgumentException');
-		}
+		$this->setExpectedExceptionFromArgument($expected);
 		$this->setupObject(array(
-			'arguments' => array($callback),
+			'arguments' => array($callback, $arguments),
 		));
 	}
 
