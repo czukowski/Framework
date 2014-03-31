@@ -20,9 +20,9 @@ class ConstructorCallback extends Callback
 {
 	/**
 	 * @param  string  $classname
-	 * @param  mixed   $arguments
+	 * @param  array   $arguments
 	 */
-	public function __construct($classname, $arguments = NULL)
+	public function __construct($classname, $arguments = array())
 	{
 		$this->validateCallback($classname);
 		$this->validateArguments($arguments);
@@ -60,10 +60,10 @@ class ConstructorCallback extends Callback
 	}
 
 	/**
-	 * @param   mixed  $arguments
+	 * @param   array  $arguments
 	 * @return  object
 	 */
-	public function invoke($arguments = NULL)
+	public function invoke($arguments = array())
 	{
 		// FIXME: implement constructor arguments.
 		$this->validateArguments($arguments);

@@ -27,7 +27,7 @@ class MethodCallback extends Callback
 	 * @param  mixed  $callback
 	 * @param  array  $arguments
 	 */
-	public function __construct($callback, $arguments = NULL)
+	public function __construct($callback, $arguments = array())
 	{
 		$this->validateCallback($callback);
 		$this->callback = $callback;
@@ -108,12 +108,11 @@ class MethodCallback extends Callback
 	}
 
 	/**
-	 * @param   mixed  $arguments
+	 * @param   array  $arguments
 	 * @return  object
 	 */
-	public function invoke($arguments = NULL)
+	public function invoke($arguments = array())
 	{
-		$arguments = $this->getArguments();
-		return call_user_func_array($this->callback, $arguments ? : array());
+		return call_user_func_array($this->callback, $arguments ? : $this->getArguments());
 	}
 }

@@ -16,9 +16,9 @@ use Cz\Framework\Exceptions;
 abstract class Callback implements CallbackInterface
 {
 	/**
-	 * @var  array|NULL
+	 * @var  array
 	 */
-	protected $arguments;
+	protected $arguments = array();
 	/**
 	 * @var  mixed
 	 */
@@ -33,7 +33,7 @@ abstract class Callback implements CallbackInterface
 	}
 
 	/**
-	 * @return  array|NULL
+	 * @return  array
 	 */
 	public function getArguments()
 	{
@@ -45,9 +45,9 @@ abstract class Callback implements CallbackInterface
 	 */
 	public function setArguments($arguments)
 	{
-		if ($arguments !== NULL && ! is_array($arguments))
+		if ( ! is_array($arguments) && ! $arguments instanceof \Traversable)
 		{
-			throw new Exceptions\InvalidArgumentException('Invalid callback arguments, expected array or NULL.');
+			throw new Exceptions\InvalidArgumentException('Invalid callback arguments, expected array or Traversable object.');
 		}
 		$this->arguments = $arguments;
 		return $this;

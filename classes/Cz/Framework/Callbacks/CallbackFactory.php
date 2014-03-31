@@ -19,11 +19,11 @@ class CallbackFactory
 	 * Creates callback depending on argument types.
 	 * 
 	 * @param   string  $callback   String to build callback from
-	 * @param   mixed   $arguments  Optional callback arguments: array or NULL
+	 * @param   array   $arguments  Optional callback arguments
 	 * @return  CallbackInterface
 	 * @throws  Exceptions\NotSupportedException
 	 */
-	public function createCallback($callback, $arguments = NULL)
+	public function createCallback($callback, $arguments = array())
 	{
 		if ($callback instanceof CallbackInterface)
 		{

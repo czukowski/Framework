@@ -25,7 +25,7 @@ abstract class Testcase extends PHPUnit\Testcase
 	{
 		$this->setExpectedExceptionFromArgument($expected);
 		$this->setupObject(array(
-			'arguments' => array($callback, $arguments),
+			'arguments' => $arguments === NULL ? array($callback) : array($callback, $arguments),
 		));
 	}
 

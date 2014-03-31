@@ -1,6 +1,7 @@
 <?php
 namespace Cz\Framework\Callbacks;
-use Cz\PHPUnit;
+use Cz\PHPUnit,
+	Cz\Framework\Exceptions;
 
 /**
  * ConstructorTest
@@ -31,8 +32,9 @@ class CallbackTest extends PHPUnit\Testcase
 	/**
 	 * @dataProvider  provideArguments
 	 */
-	public function testSetArguments($arguments)
+	public function testSetArguments($arguments, $exception = NULL)
 	{
+		$this->setExpectedExceptionFromArgument($exception);
 		$this->object->setArguments($arguments);
 		$actual = $this->getObjectProperty($this->object, 'arguments')
 			->getValue($this->object);
@@ -54,10 +56,7 @@ class CallbackTest extends PHPUnit\Testcase
 	{
 		return array(
 			array(
-				array(1, 2, 3),
-			),
-			array(
-				NULL,
+				array(),
 			),
 			array(
 				array(NULL),
@@ -66,7 +65,17 @@ class CallbackTest extends PHPUnit\Testcase
 				array(TRUE, FALSE),
 			),
 			array(
+				array(1, 2, 3),
+			),
+			array(
 				array(new \stdClass),
+			),
+			array(
+				new \ArrayObject,
+			),
+			array(
+				NULL,
+				new Exceptions\InvalidArgumentException,
 			),
 		);
 	}
