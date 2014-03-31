@@ -65,23 +65,7 @@ class ObjectCallback extends Callback
 	/**
 	 * @throws  Exceptions\NotSupportedException
 	 */
-	public function getArguments()
-	{
-		$this->throwException();
-	}
-
-	/**
-	 * @throws  Exceptions\NotSupportedException
-	 */
 	public function setArguments($arguments)
-	{
-		$this->throwException($arguments);
-	}
-
-	/**
-	 * @throws  Exceptions\NotSupportedException
-	 */
-	private function throwException()
 	{
 		throw new Exceptions\NotSupportedException('Object callback does not support arguments.');
 	}

@@ -20,17 +20,15 @@ class ObjectCallbackTest extends Testcase
 	/**
 	 * @expectedException  Cz\Framework\Exceptions\NotSupportedException
 	 */
-	public function testGetArguments()
-	{
-		$this->object->getArguments();
-	}
-
-	/**
-	 * @expectedException  Cz\Framework\Exceptions\NotSupportedException
-	 */
 	public function testSetArguments()
 	{
 		$this->object->setArguments(array('anything'));
+	}
+
+	public function testGetArguments()
+	{
+		$actual = $this->object->getArguments();
+		$this->assertSame(array(), $actual);
 	}
 
 	/**
