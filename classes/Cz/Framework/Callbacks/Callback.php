@@ -52,4 +52,14 @@ abstract class Callback implements CallbackInterface
 		$this->arguments = $arguments;
 		return $this;
 	}
+
+	/**
+	 * Invoke magic function.
+	 * 
+	 * @return  mixed
+	 */
+	public function __invoke()
+	{
+		return $this->invoke(func_get_args());
+	}
 }

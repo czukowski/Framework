@@ -42,4 +42,9 @@ interface CallbackInterface
 	 * @param  array  $arguments  Optional arguments.
 	 */
 	function invoke($arguments = array());
+
+	/**
+	 * Invoke callback using PHP magic method.
+	 */
+	function __invoke();
 }
