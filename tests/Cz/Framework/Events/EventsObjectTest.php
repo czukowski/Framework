@@ -59,7 +59,7 @@ class EventsObjectTest extends Testcase
 					array('event3', $callbackObject),
 				),
 				array(
-					'event3' => array($callbackObject->getCallback()),
+					'event3' => array($callbackObject),
 				),
 			),
 			// Test adding event handler that is not a valid callback.
@@ -167,7 +167,7 @@ class EventsObjectTest extends Testcase
 			// Test removing a specific event handler by passing a Framework's Callback object.
 			array(
 				array(
-					'event1' => array($callback1, $callback2),
+					'event1' => array($callback1Object, $callback2),
 					'event2' => array($callback1),
 				),
 				array(

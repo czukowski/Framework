@@ -121,18 +121,13 @@ trait Events
 	}
 
 	/**
-	 * Checks that the event handler is actually callable. Also extracts callback from this
-	 * framework's Callback type (modifies the input value).
+	 * Checks that the event handler is actually callable.
 	 * 
-	 * @param   callback|Callbacks\CallbackBase  $handler
+	 * @param   callback  $handler
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
-	private function _validateEventHandler(&$handler)
+	private function _validateEventHandler($handler)
 	{
-		if ($handler instanceof Callbacks\CallbackBase)
-		{
-			$handler = $handler->getCallback();
-		}
 		if ( ! is_callable($handler))
 		{
 			throw new Exceptions\InvalidArgumentException('Invalid event handler, must be callable.');
