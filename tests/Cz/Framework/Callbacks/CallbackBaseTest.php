@@ -155,6 +155,8 @@ class CallbackBaseTest extends PHPUnit\Testcase
 
 	public function setUp()
 	{
-		$this->setupMock();
+		$this->setupMock(array(
+			'arguments' => array('callback'),
+		));
 	}
 }

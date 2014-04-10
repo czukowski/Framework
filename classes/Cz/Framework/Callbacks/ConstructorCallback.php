@@ -19,16 +19,6 @@ use Cz\Framework\Exceptions;
 class ConstructorCallback extends CallbackBase
 {
 	/**
-	 * @param  string  $classname
-	 * @param  array   $arguments
-	 */
-	public function __construct($classname, $arguments = array())
-	{
-		$this->setCallback($classname);
-		$this->setArguments($arguments);
-	}
-
-	/**
 	 * @param   string  $callback
 	 * @throws  Exceptions\InvalidArgumentException
 	 */

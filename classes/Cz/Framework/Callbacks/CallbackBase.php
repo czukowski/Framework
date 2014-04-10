@@ -26,6 +26,16 @@ abstract class CallbackBase implements CallbackInterface
 	protected $callback;
 
 	/**
+	 * @param  mixed  $callback
+	 * @param  array  $arguments
+	 */
+	public function __construct($callback, $arguments = array())
+	{
+		$this->setCallback($callback);
+		$this->setArguments($arguments);
+	}
+
+	/**
 	 * @return  mixed
 	 */
 	public function getCallback()

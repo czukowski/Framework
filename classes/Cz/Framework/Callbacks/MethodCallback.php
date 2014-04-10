@@ -24,16 +24,6 @@ use Cz\Framework\Exceptions;
 class MethodCallback extends CallbackBase
 {
 	/**
-	 * @param  mixed  $callback
-	 * @param  array  $arguments
-	 */
-	public function __construct($callback, $arguments = array())
-	{
-		$this->setCallback($callback);
-		$this->setArguments($arguments);
-	}
-
-	/**
 	 * @param   mixed  $callback
 	 * @throws  Exceptions\InvalidArgumentException
 	 */

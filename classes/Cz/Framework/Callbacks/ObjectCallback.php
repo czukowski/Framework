@@ -18,16 +18,6 @@ use Cz\Framework\Exceptions;
 class ObjectCallback extends CallbackBase
 {
 	/**
-	 * @param  object  $object
-	 * @param  array   $arguments
-	 */
-	public function __construct($object, $arguments = array())
-	{
-		$this->setCallback($object);
-		$this->validateArguments($arguments);
-	}
-
-	/**
 	 * @param   object  $callback
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
