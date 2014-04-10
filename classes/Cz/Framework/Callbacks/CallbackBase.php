@@ -33,6 +33,23 @@ abstract class CallbackBase implements CallbackInterface
 	}
 
 	/**
+	 * @param   mixed  $callback
+	 * @return  $this
+	 */
+	public function setCallback($callback)
+	{
+		$this->validateCallback($callback);
+		$this->callback = $callback;
+		return $this;
+	}
+
+	/**
+	 * @param   mixed  $callback
+	 * @throws  Exceptions\InvalidArgumentException
+	 */
+	abstract protected function validateCallback($callback);
+
+	/**
 	 * @return  array
 	 */
 	public function getArguments()

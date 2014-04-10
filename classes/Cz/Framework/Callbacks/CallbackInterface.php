@@ -37,6 +37,13 @@ interface CallbackInterface
 	function getCallback();
 
 	/**
+	 * Set "raw" callback object.
+	 * 
+	 * @param  callable  $callback
+	 */
+	function setCallback($callback);
+
+	/**
 	 * Invoke callback and return the resulting value.
 	 * 
 	 * @param  array  $arguments  Optional arguments.

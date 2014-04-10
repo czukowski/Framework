@@ -23,16 +23,15 @@ class ObjectCallback extends CallbackBase
 	 */
 	public function __construct($object, $arguments = array())
 	{
-		$this->validateCallback($object);
+		$this->setCallback($object);
 		$this->validateArguments($arguments);
-		$this->callback = $object;
 	}
 
 	/**
 	 * @param   object  $callback
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
-	private function validateCallback($callback)
+	protected function validateCallback($callback)
 	{
 		if ( ! is_object($callback))
 		{

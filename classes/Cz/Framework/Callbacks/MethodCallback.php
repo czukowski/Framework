@@ -29,8 +29,7 @@ class MethodCallback extends CallbackBase
 	 */
 	public function __construct($callback, $arguments = array())
 	{
-		$this->validateCallback($callback);
-		$this->callback = $callback;
+		$this->setCallback($callback);
 		$this->setArguments($arguments);
 	}
 
@@ -38,7 +37,7 @@ class MethodCallback extends CallbackBase
 	 * @param   mixed  $callback
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
-	private function validateCallback($callback)
+	protected function validateCallback($callback)
 	{
 		if (is_string($callback))
 		{
