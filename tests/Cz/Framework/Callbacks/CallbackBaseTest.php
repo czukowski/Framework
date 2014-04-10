@@ -41,17 +41,6 @@ class CallbackBaseTest extends PHPUnit\Testcase
 		$this->assertSame($arguments, $actual);
 	}
 
-	/**
-	 * @dataProvider  provideArguments
-	 */
-	public function testGetCallback($object)
-	{
-		$this->getObjectProperty($this->object, 'callback')
-			->setValue($this->object, $object);
-		$actual = $this->object->getCallback();
-		$this->assertSame($object, $actual);
-	}
-
 	public function provideArguments()
 	{
 		return array(
@@ -96,6 +85,43 @@ class CallbackBaseTest extends PHPUnit\Testcase
 			array(1),
 			array(FALSE),
 			array(TRUE),
+		);
+	}
+
+	/**
+	 * @dataProvider  provideCallback
+	 */
+	public function testGetCallback($object)
+	{
+		$this->getObjectProperty($this->object, 'callback')
+			->setValue($this->object, $object);
+		$actual = $this->object->getCallback();
+		$this->assertSame($object, $actual);
+	}
+
+	/**
+	 * @dataProvider  provideCallback
+	 */
+	public function testSetCallback($callback)
+	{
+		$this->object->setCallback($callback);
+		$actual = $this->getObjectProperty($this->object, 'callback')
+			->getValue($this->object);
+		$this->assertSame($callback, $actual);
+	}
+
+	public function provideCallback()
+	{
+		return array(
+			array(
+				new \stdClass,
+			),
+			array(
+				array($this, 'provideCallback'),
+			),
+			array(
+				'ArrayObject',
+			),
 		);
 	}
 
