@@ -16,7 +16,7 @@ use Cz\Framework\Exceptions;
  * 
  * @property  string  $callback  Classname to create an object from.
  */
-class ConstructorCallback extends Callback
+class ConstructorCallback extends CallbackBase
 {
 	/**
 	 * @param  string  $classname

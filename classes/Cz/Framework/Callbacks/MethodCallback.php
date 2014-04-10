@@ -21,7 +21,7 @@ use Cz\Framework\Exceptions;
  * 
  * @property  mixed  $callback  Callback to method.
  */
-class MethodCallback extends Callback
+class MethodCallback extends CallbackBase
 {
 	/**
 	 * @param  mixed  $callback

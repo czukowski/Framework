@@ -14,9 +14,9 @@ use Cz\PHPUnit,
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  * 
- * @property  Callback  $object
+ * @property  CallbackBase  $object
  */
-class CallbackTest extends PHPUnit\Testcase
+class CallbackBaseTest extends PHPUnit\Testcase
 {
 	/**
 	 * @dataProvider  provideArguments

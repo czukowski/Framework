@@ -13,7 +13,7 @@ use Cz\Framework\Exceptions;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-abstract class Callback implements CallbackInterface
+abstract class CallbackBase implements CallbackInterface
 {
 	/**
 	 * @var  array

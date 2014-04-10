@@ -15,7 +15,7 @@ use Cz\Framework\Exceptions;
  * 
  * @property  object  $object  Object to return when invoked.
  */
-class ObjectCallback extends Callback
+class ObjectCallback extends CallbackBase
 {
 	/**
 	 * @param  object  $object
