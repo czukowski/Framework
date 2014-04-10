@@ -43,7 +43,7 @@ class ObjectCallback extends CallbackBase
 	 * @param   array  $arguments
 	 * @throws  Exceptions\NotSupportedException
 	 */
-	private function validateArguments($arguments)
+	protected function validateArguments($arguments)
 	{
 		if ($arguments)
 		{

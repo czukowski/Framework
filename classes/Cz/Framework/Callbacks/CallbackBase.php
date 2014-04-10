@@ -1,6 +1,7 @@
 <?php
 namespace Cz\Framework\Callbacks;
-use Cz\Framework\Exceptions;
+use Cz\Framework\Exceptions,
+	Traversable;
 
 /**
  * Callback
@@ -58,16 +59,26 @@ abstract class CallbackBase implements CallbackInterface
 	}
 
 	/**
+	 * @param   array|Traversable  $callback
 	 * @return  $this
 	 */
 	public function setArguments($arguments)
 	{
-		if ( ! is_array($arguments) && ! $arguments instanceof \Traversable)
+		$this->validateArguments($arguments);
+		$this->arguments = $arguments;
+		return $this;
+	}
+
+	/**
+	 * @param   array|Traversable  $callback
+	 * @throws  Exceptions\InvalidArgumentException
+	 */
+	protected function validateArguments($arguments)
+	{
+		if ( ! is_array($arguments) && ! $arguments instanceof Traversable)
 		{
 			throw new Exceptions\InvalidArgumentException('Invalid callback arguments, expected array or Traversable object.');
 		}
-		$this->arguments = $arguments;
-		return $this;
 	}
 
 	/**

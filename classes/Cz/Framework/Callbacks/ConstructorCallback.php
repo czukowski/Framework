@@ -25,7 +25,6 @@ class ConstructorCallback extends CallbackBase
 	public function __construct($classname, $arguments = array())
 	{
 		$this->setCallback($classname);
-		$this->validateArguments($arguments);
 		$this->setArguments($arguments);
 	}
 
@@ -47,10 +46,10 @@ class ConstructorCallback extends CallbackBase
 	}
 
 	/**
-	 * @param   mixed  $arguments
+	 * @param   array  $arguments
 	 * @throws  Exceptions\NotImplementedException
 	 */
-	private function validateArguments($arguments)
+	protected function validateArguments($arguments)
 	{
 		if ($arguments)
 		{
