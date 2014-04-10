@@ -60,12 +60,4 @@ class ObjectCallback extends CallbackBase
 		$this->validateArguments($arguments);
 		return $this->callback;
 	}
-
-	/**
-	 * @throws  Exceptions\NotSupportedException
-	 */
-	public function setArguments($arguments)
-	{
-		throw new Exceptions\NotSupportedException('Object callback does not support arguments.');
-	}
 }
