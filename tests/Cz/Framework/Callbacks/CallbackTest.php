@@ -99,6 +99,34 @@ class CallbackTest extends PHPUnit\Testcase
 		);
 	}
 
+	/**
+	 * Tests `__invoke` magick method by calling it using `call_user_func_array`, passing some
+	 * arguments and verifying it's returning value from the mocked `invoke` method.
+	 * 
+	 * @dataProvider  provideInvokeMagic
+	 */
+	public function testInvokeMagic($arguments, $expected)
+	{
+		$this->object->expects($this->any())
+			->method('invoke')
+			->will($this->returnValue($expected));
+		$actual = call_user_func_array($this->object, $arguments);
+		$this->assertSame($expected, $actual);
+	}
+
+	public function provideInvokeMagic()
+	{
+		// [arguments, expected]
+		return array(
+			array(
+				array(), TRUE,
+			),
+			array(
+				array(3.14), new \stdClass,
+			),
+		);
+	}
+
 	public function setUp()
 	{
 		$this->setupMock();
