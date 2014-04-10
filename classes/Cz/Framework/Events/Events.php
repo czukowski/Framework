@@ -1,7 +1,6 @@
 <?php
 namespace Cz\Framework\Events;
-use Cz\Framework\Callbacks,
-	Cz\Framework\Exceptions;
+use Cz\Framework\Exceptions;
 
 /**
  * Events
