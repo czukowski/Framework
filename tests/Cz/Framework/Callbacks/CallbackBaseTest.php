@@ -175,6 +175,46 @@ class CallbackBaseTest extends PHPUnit\Testcase
 		);
 	}
 
+	/**
+	 * Tests that the internal `getInvocationArguments` method returns arguments passed to it,
+	 * if any, and otherwise returns object's default arguments using `getArguments` method.
+	 * 
+	 * @dataProvider  provideGetInvocationArguments
+	 */
+	public function testGetInvocationArguments($default, $arguments, $expected)
+	{
+		$this->setExpectedExceptionFromArgument($expected);
+		$this->object->setArguments($default);
+		$actual = $this->getObjectMethod($this->object, 'getInvocationArguments')
+			->invoke($this->object, $arguments);
+		$this->assertSame($expected, $actual);
+	}
+
+	/**
+	 * Provides test cases for `testGetInvocationArguments`.
+	 */
+	public function provideGetInvocationArguments()
+	{
+		// [default arguments, arguments, expected]
+		return array(
+			array(
+				array(), array(), array(),
+			),
+			array(
+				array(1, 2), array(), array(1, 2),
+			),
+			array(
+				array(), array(3, 4), array(3, 4),
+			),
+			array(
+				array(1, 2), array(3, 4), array(3, 4),
+			),
+			array(
+				array(1, 2), 'not array', new Exceptions\InvalidArgumentException,
+			),
+		);
+	}
+
 	public function setUp()
 	{
 		$this->setupMock(array(

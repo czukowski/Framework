@@ -36,18 +36,6 @@ class ConstructorCallback extends CallbackBase
 	}
 
 	/**
-	 * @param   array  $arguments
-	 * @throws  Exceptions\NotImplementedException
-	 */
-	protected function validateArguments($arguments)
-	{
-		if ($arguments)
-		{
-			throw new Exceptions\NotImplementedException('Callback arguments are not supported.');
-		}
-	}
-
-	/**
 	 * Creates a new class instance and returns it.
 	 * 
 	 * @param   array  $arguments
@@ -55,8 +43,39 @@ class ConstructorCallback extends CallbackBase
 	 */
 	public function invoke($arguments = array())
 	{
-		// FIXME: implement constructor arguments.
-		$this->validateArguments($arguments);
-		return new $this->callback;
+		$arguments = $this->getInvocationArguments($arguments);
+		if (empty($arguments))
+		{
+			// Create class instance using the easiest way, if arguments were not supplied.
+			return new $this->callback;
+		}
+		elseif ($this->isReflectionAvailable())
+		{
+			// Create class instance using Reflection, if available.
+			$class = new \ReflectionClass($this->callback);
+			return $class->newInstanceArgs($arguments);
+		}
+		else
+		{
+			// Create class instance using `eval`, if all else fails.
+			// Potentially hazardous, but oh well.
+			$evalString = 'return new '.$this->callback.'('
+				.implode(', ', array_map(function($key) {
+					return '$arguments['.$key.']';
+				}, array_keys($arguments)))
+				.');';
+			return eval($evalString);
+		}
+	}
+
+	/**
+	 * Checks the Reflection extension availablilty (for our purpose, it's suffice to check for
+	 * the `ReflectionClass` existence).
+	 * 
+	 * @return  boolean
+	 */
+	protected function isReflectionAvailable()
+	{
+		return class_exists('ReflectionClass');
 	}
 }

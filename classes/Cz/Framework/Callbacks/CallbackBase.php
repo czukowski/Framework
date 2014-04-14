@@ -117,4 +117,17 @@ abstract class CallbackBase implements CallbackInterface
 	{
 		return $this->invoke(func_get_args());
 	}
+
+	/**
+	 * Returns "clean" arguments to be used for callback invocation. Also validates passed
+	 * whatever arguments are passed to it, if any.
+	 * 
+	 * @param   array|Traversable  $arguments
+	 * @return  array
+	 */
+	protected function getInvocationArguments($arguments)
+	{
+		$this->validateArguments($arguments);
+		return $arguments ? : $this->getArguments();
+	}
 }

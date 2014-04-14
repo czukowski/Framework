@@ -110,6 +110,6 @@ class MethodCallback extends CallbackBase
 	 */
 	public function invoke($arguments = array())
 	{
-		return call_user_func_array($this->callback, $arguments ? : $this->getArguments());
+		return call_user_func_array($this->callback, $this->getInvocationArguments($arguments));
 	}
 }

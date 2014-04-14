@@ -22,13 +22,35 @@ class ConstructorCallbackTest extends Testcase
 	 * 
 	 * @dataProvider  provideInvoke
 	 */
-	public function testInvoke($classname, $arguments)
+	public function testInvoke($classname, $default, $arguments, $reflection)
 	{
-		$this->setupObject(array(
-			'arguments' => array($classname, $arguments),
-		));
-		$actual = $this->object->invoke();
+		$this->setupInvoke($classname, $default, $reflection);
+		$actual = $this->object->invoke($arguments);
 		$this->assertInstanceOf($classname, $actual);
+	}
+
+	/**
+	 * Setup fixture object depending on `$reflection` argument. If we want to test as if
+	 * Reflection was not available, got to create a mock object.
+	 */
+	private function setupInvoke($classname, $default, $reflection)
+	{
+		if ($reflection)
+		{
+			$this->setupObject(array(
+				'arguments' => array($classname, $default),
+			));
+		}
+		else
+		{
+			$this->setupMock(array(
+				'arguments' => array($classname, $default),
+				'methods' => $reflection ? array('none') : array('isReflectionAvailable'),
+			));
+			$this->object->expects($this->any())
+				->method('isReflectionAvailable')
+				->will($this->returnValue(FALSE));
+		}
 	}
 
 	/**
@@ -36,8 +58,12 @@ class ConstructorCallbackTest extends Testcase
 	 */
 	public function provideInvoke()
 	{
+		// [classname, default arguments, arguments, reflection available]
 		return array(
-			array('stdClass', array()),
+			array('stdClass', array(), array(), TRUE),
+			array('ArrayObject', array(array('arg 1')), array(), TRUE),
+			array('ArrayObject', array(array('arg 1', 'arg 2')), array(), FALSE),
+			array('ArrayObject', array(array('arg 1')), array(array('arg 1', 'arg 2')), FALSE),
 		);
 	}
 
@@ -53,10 +79,11 @@ class ConstructorCallbackTest extends Testcase
 			array(array($this, 'provideConstruct'), NULL, new Exceptions\InvalidArgumentException),
 			array(new \stdClass, NULL, new Exceptions\InvalidArgumentException),
 			array(function() {return TRUE;}, NULL, new Exceptions\InvalidArgumentException),
-			// Valid classname definitions, but unsupported arguments (unsupported).
-			array(get_class($this), array(1, 2), new Exceptions\NotImplementedException),
-			array($this->getClassName(), array(1), new Exceptions\NotImplementedException),
-			// Valid classname definitions and arguments.
+			// Valid classname definitions, with arguments.
+			array(get_class($this), array(1, 2), NULL),
+			array($this->getClassName(), array(1), NULL),
+			array('ArrayObject', array(array(1, 2, 3)), NULL),
+			// Valid classname definitions without arguments.
 			array(get_class($this), NULL, NULL),
 			array($this->getClassName(), NULL, NULL),
 			array('ArrayObject', NULL, NULL),
