@@ -19,6 +19,8 @@ use Cz\Framework\Exceptions;
 class MethodCallbackTest extends Testcase
 {
 	/**
+	 * Tests invocation return values.
+	 * 
 	 * @dataProvider  provideInvoke
 	 */
 	public function testInvoke($callback, $arguments, $expected)
@@ -37,6 +39,9 @@ class MethodCallbackTest extends Testcase
 		}
 	}
 
+	/**
+	 * Provides test cases for the `testInvoke` test.
+	 */
 	public function provideInvoke()
 	{
 		return array(
@@ -51,21 +56,33 @@ class MethodCallbackTest extends Testcase
 		);
 	}
 
+	/**
+	 * Helper callback method that returns back argument passed to it.
+	 */
 	public function callbackReturnArgument($argument)
 	{
 		return $argument;
 	}
 
+	/**
+	 * Helper callback method that always returns `NULL`.
+	 */
 	public function callbackReturnNull()
 	{
 		return NULL;
 	}
 
+	/**
+	 * Helper callback method that always returns self.
+	 */
 	public function callbackReturnSelf()
 	{
 		return $this;
 	}
 
+	/**
+	 * Provides test cases for the common `testConstruct` test, that's in the Testcase class.
+	 */
 	public function provideConstruct()
 	{
 		// [callback definition, callback arguments, expected exception]

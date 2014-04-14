@@ -18,6 +18,8 @@ use Cz\PHPUnit;
 class CallbackFactoryTest extends PHPUnit\Testcase
 {
 	/**
+	 * Tests the `createCallback` factory method.
+	 * 
 	 * @dataProvider  provideCreateCallback
 	 */
 	public function testCreateCallback($callback, $expected)
@@ -31,6 +33,9 @@ class CallbackFactoryTest extends PHPUnit\Testcase
 	}
 
 	/**
+	 * Tests the `createCallback` factory method, used with a Callback type instance. It should
+	 * not create callback of a callback, but instead use the raw callback object.
+	 * 
 	 * @dataProvider  provideCreateCallback
 	 */
 	public function testCreateCopy($callback, $expected)
@@ -45,6 +50,9 @@ class CallbackFactoryTest extends PHPUnit\Testcase
 		$this->assertSame($source->getCallback(), $actual->getCallback());
 	}
 
+	/**
+	 * Provides test cases for `testCreateCallback` and `testCreateCopy`.
+	 */
 	public function provideCreateCallback()
 	{
 		return array(

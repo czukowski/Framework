@@ -18,6 +18,8 @@ use Cz\Framework\Exceptions;
 class ConstructorCallbackTest extends Testcase
 {
 	/**
+	 * Tests invocation return values.
+	 * 
 	 * @dataProvider  provideInvoke
 	 */
 	public function testInvoke($classname, $arguments)
@@ -29,6 +31,9 @@ class ConstructorCallbackTest extends Testcase
 		$this->assertInstanceOf($classname, $actual);
 	}
 
+	/**
+	 * Provides test cases for the `testInvoke` test.
+	 */
 	public function provideInvoke()
 	{
 		return array(
@@ -36,6 +41,9 @@ class ConstructorCallbackTest extends Testcase
 		);
 	}
 
+	/**
+	 * Provides test cases for the common `testConstruct` test, that's in the Testcase class.
+	 */
 	public function provideConstruct()
 	{
 		// [callback definition, callback arguments, expected exception]

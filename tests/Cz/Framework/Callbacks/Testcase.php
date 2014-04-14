@@ -19,6 +19,8 @@ use Cz\PHPUnit;
 abstract class Testcase extends PHPUnit\Testcase
 {
 	/**
+	 * Tests Callback type constructor, using test cases from the type-specific test classes.
+	 * 
 	 * @dataProvider  provideConstruct
 	 */
 	public function testConstruct($callback, $arguments, $expected)
@@ -30,7 +32,7 @@ abstract class Testcase extends PHPUnit\Testcase
 	}
 
 	/**
-	 * @return  array
+	 * Callback type specific test classes implement this data provider.
 	 */
 	abstract function provideConstruct();
 }

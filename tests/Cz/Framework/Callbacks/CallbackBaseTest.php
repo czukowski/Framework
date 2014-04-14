@@ -19,6 +19,8 @@ use Cz\PHPUnit,
 class CallbackBaseTest extends PHPUnit\Testcase
 {
 	/**
+	 * Tests that the `getArguments` method returns the object's `arguments` property value.
+	 * 
 	 * @dataProvider  provideArguments
 	 */
 	public function testGetArguments($arguments)
@@ -30,6 +32,8 @@ class CallbackBaseTest extends PHPUnit\Testcase
 	}
 
 	/**
+	 * Tests that the `setArguments` method sets the object's `arguments` property.
+	 * 
 	 * @dataProvider  provideArguments
 	 */
 	public function testSetArguments($arguments, $exception = NULL)
@@ -41,6 +45,9 @@ class CallbackBaseTest extends PHPUnit\Testcase
 		$this->assertSame($arguments, $actual);
 	}
 
+	/**
+	 * Provides test cases for `testGetArguments` and `testSetArguments`.
+	 */
 	public function provideArguments()
 	{
 		return array(
@@ -70,6 +77,8 @@ class CallbackBaseTest extends PHPUnit\Testcase
 	}
 
 	/**
+	 * Tests that setting invalid arguments results in exception thrown.
+	 * 
 	 * @dataProvider       provideSetInvalidArguments
 	 * @expectedException  Cz\Framework\Exceptions\InvalidArgumentException
 	 */
@@ -78,6 +87,9 @@ class CallbackBaseTest extends PHPUnit\Testcase
 		$this->object->setArguments($arguments);
 	}
 
+	/**
+	 * Provides test cases for `testSetInvalidArguments`.
+	 */
 	public function provideSetInvalidArguments()
 	{
 		return array(
@@ -89,6 +101,8 @@ class CallbackBaseTest extends PHPUnit\Testcase
 	}
 
 	/**
+	 * Tests that the `getCallback` method returns the object's `callback` property value.
+	 * 
 	 * @dataProvider  provideCallback
 	 */
 	public function testGetCallback($object)
@@ -100,6 +114,8 @@ class CallbackBaseTest extends PHPUnit\Testcase
 	}
 
 	/**
+	 * Tests that the `setCallback` method sets the object's `callback` property.
+	 * 
 	 * @dataProvider  provideCallback
 	 */
 	public function testSetCallback($callback)
@@ -110,6 +126,9 @@ class CallbackBaseTest extends PHPUnit\Testcase
 		$this->assertSame($callback, $actual);
 	}
 
+	/**
+	 * Provides test cases for `testGetCallback` and `testSetCallback`.
+	 */
 	public function provideCallback()
 	{
 		return array(
@@ -140,6 +159,9 @@ class CallbackBaseTest extends PHPUnit\Testcase
 		$this->assertSame($expected, $actual);
 	}
 
+	/**
+	 * Provides test cases for `testInvokeMagic`.
+	 */
 	public function provideInvokeMagic()
 	{
 		// [arguments, expected]
