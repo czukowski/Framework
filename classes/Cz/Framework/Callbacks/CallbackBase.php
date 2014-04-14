@@ -17,17 +17,19 @@ use Cz\Framework\Exceptions,
 abstract class CallbackBase implements CallbackInterface
 {
 	/**
-	 * @var  array
+	 * @var  array  Default callback invocation arguments, used when invoked without arguments.
 	 */
 	protected $arguments = array();
 	/**
-	 * @var  mixed
+	 * @var  mixed  Actual callback object (each Callback type implements it a bit differently).
 	 */
 	protected $callback;
 
 	/**
-	 * @param  mixed  $callback
-	 * @param  array  $arguments
+	 * Sets callback and default arguments.
+	 * 
+	 * @param  mixed  $callback   Actual callback object
+	 * @param  array  $arguments  Default invocation arguments
 	 */
 	public function __construct($callback, $arguments = array())
 	{
@@ -36,6 +38,8 @@ abstract class CallbackBase implements CallbackInterface
 	}
 
 	/**
+	 * Returns actual callback object.
+	 * 
 	 * @return  mixed
 	 */
 	public function getCallback()
@@ -44,6 +48,8 @@ abstract class CallbackBase implements CallbackInterface
 	}
 
 	/**
+	 * Sets actual callback object.
+	 * 
 	 * @param   mixed  $callback
 	 * @return  $this
 	 */
@@ -55,12 +61,17 @@ abstract class CallbackBase implements CallbackInterface
 	}
 
 	/**
+	 * Used to validate actual callback object when set. Implemented differently in each
+	 * Callback type.
+	 * 
 	 * @param   mixed  $callback
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
 	abstract protected function validateCallback($callback);
 
 	/**
+	 * Returns default invocation arguments.
+	 * 
 	 * @return  array
 	 */
 	public function getArguments()
@@ -69,6 +80,8 @@ abstract class CallbackBase implements CallbackInterface
 	}
 
 	/**
+	 * Sets default invocation arguments. Takes array or Traversable object.
+	 * 
 	 * @param   array|Traversable  $arguments
 	 * @return  $this
 	 */
@@ -80,6 +93,9 @@ abstract class CallbackBase implements CallbackInterface
 	}
 
 	/**
+	 * Used to validate invocation arguments. Throws `InvalidArgumentException` if not array,
+	 * nor Traversable object. Specific Callback types may have additional checks.
+	 * 
 	 * @param   array|Traversable  $arguments
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
@@ -92,7 +108,8 @@ abstract class CallbackBase implements CallbackInterface
 	}
 
 	/**
-	 * Invoke magic function.
+	 * Called when a Callback instance is invoked using `call_user_function()` or similar
+	 * function.
 	 * 
 	 * @return  mixed
 	 */

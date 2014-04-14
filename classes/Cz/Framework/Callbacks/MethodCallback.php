@@ -22,6 +22,8 @@ use Cz\Framework\Exceptions;
 class MethodCallback extends CallbackBase
 {
 	/**
+	 * Validates callback to be of a callable type.
+	 * 
 	 * @param   mixed  $callback
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
@@ -46,6 +48,8 @@ class MethodCallback extends CallbackBase
 	}
 
 	/**
+	 * Validates string callback, whether is a callable string.
+	 * 
 	 * @param   string  $callback
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
@@ -58,6 +62,8 @@ class MethodCallback extends CallbackBase
 	}
 
 	/**
+	 * Validates array callback, whether is formally correct and callable array.
+	 * 
 	 * @param   array  $callback
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
@@ -83,6 +89,8 @@ class MethodCallback extends CallbackBase
 	}
 
 	/**
+	 * Validates object callback, whether is a Closure object.
+	 * 
 	 * @param   object  $callback
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
@@ -95,6 +103,8 @@ class MethodCallback extends CallbackBase
 	}
 
 	/**
+	 * Invokes callback and returns resulting value.
+	 * 
 	 * @param   array  $arguments
 	 * @return  object
 	 */

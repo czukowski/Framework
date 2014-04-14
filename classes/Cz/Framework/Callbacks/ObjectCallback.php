@@ -16,6 +16,8 @@ use Cz\Framework\Exceptions;
 class ObjectCallback extends CallbackBase
 {
 	/**
+	 * Validates the callback is an object.
+	 * 
 	 * @param   object  $callback
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
@@ -28,6 +30,8 @@ class ObjectCallback extends CallbackBase
 	}
 
 	/**
+	 * This type of callback doesn't take any arguments, throws exception if any.
+	 * 
 	 * @param   array  $arguments
 	 * @throws  Exceptions\NotSupportedException
 	 */
@@ -40,6 +44,8 @@ class ObjectCallback extends CallbackBase
 	}
 
 	/**
+	 * Returns callback object.
+	 * 
 	 * @param   array  $arguments
 	 * @return  object
 	 */

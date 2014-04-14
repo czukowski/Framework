@@ -17,6 +17,8 @@ use Cz\Framework\Exceptions;
 class ConstructorCallback extends CallbackBase
 {
 	/**
+	 * Validates that a callback is a string and that a class with that name exists.
+	 * 
 	 * @param   string  $callback
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
@@ -46,6 +48,8 @@ class ConstructorCallback extends CallbackBase
 	}
 
 	/**
+	 * Creates a new class instance and returns it.
+	 * 
 	 * @param   array  $arguments
 	 * @return  object
 	 */
