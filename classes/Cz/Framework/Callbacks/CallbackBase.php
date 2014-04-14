@@ -69,7 +69,7 @@ abstract class CallbackBase implements CallbackInterface
 	}
 
 	/**
-	 * @param   array|Traversable  $callback
+	 * @param   array|Traversable  $arguments
 	 * @return  $this
 	 */
 	public function setArguments($arguments)
@@ -80,7 +80,7 @@ abstract class CallbackBase implements CallbackInterface
 	}
 
 	/**
-	 * @param   array|Traversable  $callback
+	 * @param   array|Traversable  $arguments
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
 	protected function validateArguments($arguments)
