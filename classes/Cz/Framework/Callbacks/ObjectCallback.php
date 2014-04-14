@@ -12,8 +12,6 @@ use Cz\Framework\Exceptions;
  * @author     Korney Czukowski
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
- * 
- * @property  object  $object  Object to return when invoked.
  */
 class ObjectCallback extends CallbackBase
 {

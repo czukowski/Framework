@@ -18,8 +18,6 @@ use Cz\Framework\Exceptions;
  * @author     Korney Czukowski
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
- * 
- * @property  mixed  $callback  Callback to method.
  */
 class MethodCallback extends CallbackBase
 {

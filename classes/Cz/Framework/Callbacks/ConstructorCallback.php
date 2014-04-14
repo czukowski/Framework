@@ -13,8 +13,6 @@ use Cz\Framework\Exceptions;
  * @author     Korney Czukowski
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
- * 
- * @property  string  $callback  Classname to create an object from.
  */
 class ConstructorCallback extends CallbackBase
 {
