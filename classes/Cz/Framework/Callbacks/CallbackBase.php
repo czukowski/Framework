@@ -1,7 +1,7 @@
 <?php
 namespace Cz\Framework\Callbacks;
 use Cz\Framework\Exceptions,
-	Traversable;
+	ArrayAccess;
 
 /**
  * Callback
@@ -80,9 +80,9 @@ abstract class CallbackBase implements CallbackInterface
 	}
 
 	/**
-	 * Sets default invocation arguments. Takes array or Traversable object.
+	 * Sets default invocation arguments. Takes array or `ArrayAccess` object.
 	 * 
-	 * @param   array|Traversable  $arguments
+	 * @param   array|ArrayAccess  $arguments
 	 * @return  $this
 	 */
 	public function setArguments($arguments)
@@ -94,17 +94,17 @@ abstract class CallbackBase implements CallbackInterface
 
 	/**
 	 * Used to validate invocation arguments. Throws `InvalidArgumentException` if not array,
-	 * nor Traversable object. Also, array must not be associative (unsupported for now).
+	 * nor `ArrayAccess` object. Also, array must not be associative (unsupported for now).
 	 * Specific Callback types may have additional checks.
 	 * 
-	 * @param   array|Traversable  $arguments
+	 * @param   array|ArrayAccess  $arguments
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
 	protected function validateArguments($arguments)
 	{
-		if ( ! is_array($arguments) && ! $arguments instanceof Traversable)
+		if ( ! is_array($arguments) && ! $arguments instanceof ArrayAccess)
 		{
-			throw new Exceptions\InvalidArgumentException('Invalid callback arguments, expected array or Traversable object.');
+			throw new Exceptions\InvalidArgumentException('Invalid callback arguments, expected array or ArrayAccess object.');
 		}
 		elseif (($keys = array_keys( (array) $arguments)) && array_keys($keys) !== $keys)
 		{
@@ -127,7 +127,7 @@ abstract class CallbackBase implements CallbackInterface
 	 * Returns "clean" arguments to be used for callback invocation. Also validates passed
 	 * whatever arguments are passed to it, if any.
 	 * 
-	 * @param   array|Traversable  $arguments
+	 * @param   array|ArrayAccess  $arguments
 	 * @return  array
 	 */
 	protected function getInvocationArguments($arguments)
