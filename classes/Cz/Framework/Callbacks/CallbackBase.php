@@ -94,7 +94,8 @@ abstract class CallbackBase implements CallbackInterface
 
 	/**
 	 * Used to validate invocation arguments. Throws `InvalidArgumentException` if not array,
-	 * nor Traversable object. Specific Callback types may have additional checks.
+	 * nor Traversable object. Also, array must not be associative (unsupported for now).
+	 * Specific Callback types may have additional checks.
 	 * 
 	 * @param   array|Traversable  $arguments
 	 * @throws  Exceptions\InvalidArgumentException
@@ -104,6 +105,10 @@ abstract class CallbackBase implements CallbackInterface
 		if ( ! is_array($arguments) && ! $arguments instanceof Traversable)
 		{
 			throw new Exceptions\InvalidArgumentException('Invalid callback arguments, expected array or Traversable object.');
+		}
+		elseif (($keys = array_keys( (array) $arguments)) && array_keys($keys) !== $keys)
+		{
+			throw new Exceptions\InvalidArgumentException('Associative array of arguments is not supported.');
 		}
 	}
 
