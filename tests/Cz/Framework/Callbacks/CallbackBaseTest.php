@@ -36,9 +36,8 @@ class CallbackBaseTest extends PHPUnit\Testcase
 	 * 
 	 * @dataProvider  provideArguments
 	 */
-	public function testSetArguments($arguments, $exception = NULL)
+	public function testSetArguments($arguments)
 	{
-		$this->setExpectedExceptionFromArgument($exception);
 		$this->object->setArguments($arguments);
 		$actual = $this->getObjectProperty($this->object, 'arguments')
 			->getValue($this->object);
@@ -70,8 +69,7 @@ class CallbackBaseTest extends PHPUnit\Testcase
 				new \ArrayObject,
 			),
 			array(
-				NULL,
-				new Exceptions\InvalidArgumentException,
+				new \ArrayObject(array(1, 2, 3)),
 			),
 		);
 	}
@@ -92,11 +90,17 @@ class CallbackBaseTest extends PHPUnit\Testcase
 	 */
 	public function provideSetInvalidArguments()
 	{
+		// [arguments]
 		return array(
+			// Invalid argument type
+			array(NULL),
 			array('not array'),
 			array(1),
 			array(FALSE),
 			array(TRUE),
+			// Associative arrays
+			array(array(1 => 1, 2 => 2, 3 => 3)),
+			array(new \ArrayObject(array(1 => 1, 2 => 2, 3 => 3))),
 		);
 	}
 
