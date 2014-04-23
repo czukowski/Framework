@@ -3,7 +3,7 @@ namespace Cz\Framework\Objects;
 use Cz\Framework\Exceptions;
 
 /**
- * EventObjectTest
+ * ObjectEventsTest
  * 
  * @package    Framework
  * @category   Objects
@@ -11,9 +11,9 @@ use Cz\Framework\Exceptions;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  * 
- * @property  EventObject  $object
+ * @property  ObjectEvents  $object
  */
-class EventObjectTest extends Testcase
+class ObjectEventsTest extends Testcase
 {
 	/**
 	 * @var  array
@@ -183,7 +183,7 @@ class EventObjectTest extends Testcase
 	 * so that the remaining parameters may be tested against the expected array from the data
 	 * providers.
 	 * 
-	 * @param  EventObject  $expected
+	 * @param  ObjectEvents  $expected
 	 */
 	protected function assertBindedArguments($expected)
 	{

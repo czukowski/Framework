@@ -3,7 +3,7 @@ namespace Cz\Framework\Objects;
 use Cz\Framework\Events;
 
 /**
- * EventObject
+ * ObjectEvents
  * 
  * Base object extension with events support. This is more of an example of how can the base
  * object be extended rather than any particularly practical class.
@@ -14,7 +14,7 @@ use Cz\Framework\Events;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-abstract class EventObject extends ObjectBase
+abstract class ObjectEvents extends ObjectBase
 {
 	use Events\Events, Events\FireBinded;
 
