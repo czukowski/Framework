@@ -11,9 +11,9 @@ use Cz\Framework\Exceptions;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  * 
- * @property  BaseObject  $object
+ * @property  ObjectBase  $object
  */
-class BaseObjectTest extends Testcase
+class ObjectBaseTest extends Testcase
 {
 	/**
 	 * Tests generic access methods by asserting key not exists at first, then

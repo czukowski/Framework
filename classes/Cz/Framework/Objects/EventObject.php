@@ -14,7 +14,7 @@ use Cz\Framework\Events;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-abstract class EventObject extends BaseObject
+abstract class EventObject extends ObjectBase
 {
 	use Events\Events, Events\FireBinded;
 

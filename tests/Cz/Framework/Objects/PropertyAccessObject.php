@@ -10,7 +10,7 @@ namespace Cz\Framework\Objects;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-class PropertyAccessObject extends BaseObject
+class PropertyAccessObject extends ObjectBase
 {
 	use CamelCaseFormat;
 	use PropertyAccess;

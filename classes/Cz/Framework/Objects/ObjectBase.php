@@ -3,7 +3,7 @@ namespace Cz\Framework\Objects;
 use Cz\Framework\Exceptions;
 
 /**
- * BaseObject
+ * ObjectBase
  * 
  * This class provides a generic container for multiple key-value pairs. Generic access methods
  * are provided: `get($key, $default)`, `set($key, $value)`, `exists($key)` and `erase($key)`.
@@ -26,7 +26,7 @@ use Cz\Framework\Exceptions;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-abstract class BaseObject
+abstract class ObjectBase
 {
 	/**
 	 * @var  array

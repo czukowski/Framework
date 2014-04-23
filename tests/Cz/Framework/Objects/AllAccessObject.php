@@ -10,7 +10,7 @@ namespace Cz\Framework\Objects;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-class AllAccessObject extends BaseObject implements \ArrayAccess
+class AllAccessObject extends ObjectBase implements \ArrayAccess
 {
 	use CamelCaseFormat;
 	use ArrayAccess;

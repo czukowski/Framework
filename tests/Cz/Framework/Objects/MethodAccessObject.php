@@ -10,7 +10,7 @@ namespace Cz\Framework\Objects;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-class MethodAccessObject extends BaseObject
+class MethodAccessObject extends ObjectBase
 {
 	use CamelCaseFormat;
 	use MethodAccess;

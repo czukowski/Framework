@@ -10,7 +10,7 @@ namespace Cz\Framework\Objects;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-class ArrayAccessObject extends BaseObject implements \ArrayAccess, \Countable
+class ArrayAccessObject extends ObjectBase implements \ArrayAccess, \Countable
 {
 	use CamelCaseFormat;
 	use ArrayAccess;
