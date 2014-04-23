@@ -3,7 +3,7 @@ namespace Cz\Framework\Objects;
 use Cz\Framework\Exceptions;
 
 /**
- * ObjectTest
+ * ObjectBaseTest
  * 
  * @package    Framework
  * @category   Objects
