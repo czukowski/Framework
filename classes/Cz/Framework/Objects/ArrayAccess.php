@@ -11,6 +11,9 @@ namespace Cz\Framework\Objects;
  *   - `isset($object['key'])` equals to `$object->exists('key')`
  *   - `unset($object['key'])` equals to `$object->erase('key')`
  * 
+ * This does not implement the `ArrayAccess` interface automatically! You need to declare
+ * it in your Object implementation yourself.
+ * 
  * @package    Framework
  * @category   Objects
  * @author     Korney Czukowski
