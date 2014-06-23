@@ -22,14 +22,15 @@ class CallbackFactoryTest extends PHPUnit\Testcase
 	 * 
 	 * @dataProvider  provideCreateCallback
 	 */
-	public function testCreateCallback($callback, $expected)
+	public function testCreateCallback($callback, $arguments, $expected)
 	{
 		if ( ! $expected)
 		{
 			$this->setExpectedException('Cz\Framework\Exceptions\NotSupportedException');
 		}
-		$actual = $this->object->createCallback($callback);
+		$actual = $this->object->createCallback($callback, $arguments);
 		$this->assertInstanceOf($expected, $actual);
+		$this->assertSame($arguments, $actual->getArguments());
 	}
 
 	/**
@@ -38,16 +39,17 @@ class CallbackFactoryTest extends PHPUnit\Testcase
 	 * 
 	 * @dataProvider  provideCreateCallback
 	 */
-	public function testCreateCopy($callback, $expected)
+	public function testCreateCopy($callback, $arguments, $expected)
 	{
 		if ( ! $expected)
 		{
 			$this->setExpectedException('Cz\Framework\Exceptions\NotSupportedException');
 		}
-		$source = $this->object->createCallback($callback);
+		$source = $this->object->createCallback($callback, $arguments);
 		$actual = $this->object->createCallback($source);
 		$this->assertInstanceOf($expected, $actual);
 		$this->assertSame($source->getCallback(), $actual->getCallback());
+		$this->assertSame($arguments, $actual->getArguments());
 	}
 
 	/**
@@ -55,16 +57,17 @@ class CallbackFactoryTest extends PHPUnit\Testcase
 	 */
 	public function provideCreateCallback()
 	{
+		// [callback, arguments, expected callback class]
 		return array(
-			array(get_class($this), 'Cz\Framework\Callbacks\ConstructorCallback'),
-			array($this->getClassName(), 'Cz\Framework\Callbacks\ConstructorCallback'),
-			array('ArrayObject', 'Cz\Framework\Callbacks\ConstructorCallback'),
-			array('count', 'Cz\Framework\Callbacks\MethodCallback'),
-			array('PHPUnit_Framework_TestCase::any', 'Cz\Framework\Callbacks\MethodCallback'),
-			array(array($this, 'provideCreateCallback'), 'Cz\Framework\Callbacks\MethodCallback'),
-			array(function() {return TRUE;}, 'Cz\Framework\Callbacks\MethodCallback'),
-			array($this, 'Cz\Framework\Callbacks\ObjectCallback'),
-			array(3.14, FALSE),
+			array(get_class($this), array(), 'Cz\Framework\Callbacks\ConstructorCallback'),
+			array($this->getClassName(), array(1, 2), 'Cz\Framework\Callbacks\ConstructorCallback'),
+			array('ArrayObject', array(3.14), 'Cz\Framework\Callbacks\ConstructorCallback'),
+			array('count', array('arguments'), 'Cz\Framework\Callbacks\MethodCallback'),
+			array('PHPUnit_Framework_TestCase::any', array(), 'Cz\Framework\Callbacks\MethodCallback'),
+			array(array($this, 'provideCreateCallback'), array(), 'Cz\Framework\Callbacks\MethodCallback'),
+			array(function() {return TRUE;}, array(), 'Cz\Framework\Callbacks\MethodCallback'),
+			array($this, array(), 'Cz\Framework\Callbacks\ObjectCallback'),
+			array(3.14, array(), FALSE),
 		);
 	}
 
