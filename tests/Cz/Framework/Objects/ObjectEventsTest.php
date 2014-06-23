@@ -29,7 +29,6 @@ class ObjectEventsTest extends Testcase
 	{
 		$this->setupEvents('get');
 		$this->invokeObjectMethod('get', $arguments);
-		$this->assertBindedArguments($this->object);
 		$this->assertSame($expected, $this->callbackArguments);
 	}
 
@@ -71,7 +70,6 @@ class ObjectEventsTest extends Testcase
 	{
 		$this->setupEvents('set');
 		$this->invokeObjectMethod('set', $arguments);
-		$this->assertBindedArguments($this->object);
 		$this->assertSame($expected, $this->callbackArguments);
 	}
 
@@ -114,7 +112,6 @@ class ObjectEventsTest extends Testcase
 	{
 		$this->setupEvents('exists');
 		$this->invokeObjectMethod('exists', $arguments);
-		$this->assertBindedArguments($this->object);
 		$this->assertSame($expected, $this->callbackArguments);
 	}
 
@@ -142,7 +139,6 @@ class ObjectEventsTest extends Testcase
 		$this->invokeObjectMethod('set', array($values));
 		$this->setupEvents('erase');
 		$this->invokeObjectMethod('erase', $arguments);
-		$this->assertBindedArguments($this->object);
 		$this->assertSame($expected, $this->callbackArguments);
 	}
 
@@ -178,29 +174,30 @@ class ObjectEventsTest extends Testcase
 	}
 
 	/**
-	 * When `fireEventBinded` method is used to fire events, `$this` parameter is added at the end
-	 * of the parameters list. This method asserts it is present in the events log _and removes it_
-	 * so that the remaining parameters may be tested against the expected array from the data
-	 * providers.
-	 * 
-	 * @param  ObjectEvents  $expected
-	 */
-	protected function assertBindedArguments($expected)
-	{
-		foreach ($this->callbackArguments as &$arguments)
-		{
-			$lastArgument = array_pop($arguments);
-			$this->assertSame($expected, $lastArgument);
-		}
-	}
-
-	/**
 	 * Setup fixture and initialize event log.
 	 */
 	public function setUp()
 	{
-		$this->setupMock();
+		$this->setupMock(array(
+			'methods' => array_merge($this->getClassAbstractMethods($this->getClassName()), array('fireEvent')),
+		));
+		$this->object->expects($this->any())
+			->method('fireEvent')
+			->will($this->returnCallback(array($this, 'callbackFireEvent')));
 		$this->callbackArguments = array();
+	}
+
+	/**
+	 * Callback function to simulate `Events\FireBasic` trait. Fires events with the arguments
+	 * exactly as called.
+	 * 
+	 * @param  string  $type
+	 * @param  array   $arguments
+	 */
+	public function callbackFireEvent($type, $arguments)
+	{
+		$this->getObjectMethod($this->object, '_fireEvent')
+			->invoke($this->object, $type, $arguments);
 	}
 
 	/**

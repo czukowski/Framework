@@ -16,7 +16,7 @@ use Cz\Framework\Events;
  */
 abstract class ObjectEvents extends ObjectBase
 {
-	use Events\Events, Events\FireBinded;
+	use Events\Events;
 
 	/**
 	 * Object getter method that fires 'before-get' and 'after-get' events.
