@@ -152,6 +152,44 @@ class FiniteStateTest extends PHPUnit\Testcase
 	}
 
 	/**
+	 * @dataProvider  provideGetStates
+	 */
+	public function testGetStates($states, $graceful, $expected)
+	{
+		$this->setupFSM($states, NULL, $expected);
+		$actual = $this->object->getStates($graceful);
+		$this->assertSame($expected, $actual);
+	}
+
+	public function provideGetStates()
+	{
+		$states = $this->getSampleDefinition();
+		// [define states, graceful request, expected get states]
+		return array(
+			// Retrieving states from defined FSM, regardless of graceful option.
+			array($states, TRUE, array_keys($states)),
+			array($states, FALSE, array_keys($states)),
+			// Retrieving states from undefined FSM gracefully.
+			array(NULL, TRUE, NULL),
+			// Retrieving states from undefined FSM with exception
+			array(NULL, FALSE, new InvalidStateException),
+		);
+	}
+
+	/**
+	 * Sample FSM for many of the tests.
+	 */
+	private function getSampleDefinition()
+	{
+		return array(
+			1 => array(2, 3, 4),
+			2 => array(2, 3, 4),
+			3 => array(4),
+			4 => array(),
+		);
+	}
+
+	/**
 	 * @dataProvider  provideDefinition
 	 */
 	public function testDefinition($states, $begin, $end, $expectedStates, $expectedBegin, $expectedEnd)
@@ -271,19 +309,6 @@ class FiniteStateTest extends PHPUnit\Testcase
 		);
 	}
 
-	/**
-	 * Sample FSM for many of the tests.
-	 */
-	private function getSampleDefinition()
-	{
-		return array(
-			1 => array(2, 3, 4),
-			2 => array(2, 3, 4),
-			3 => array(4),
-			4 => array(),
-		);
-	}
-
 	public function setUp()
 	{
 		$this->setupObject();
@@ -292,7 +317,10 @@ class FiniteStateTest extends PHPUnit\Testcase
 	private function setupFSM($states, $current, $expected)
 	{
 		$this->setExpectedExceptionFromArgument($expected);
-		$this->object->setDefinition($states);
+		if ($states)
+		{
+			$this->object->setDefinition($states);
+		}
 		if ($current)
 		{
 			$this->object->setCurrentState($current);

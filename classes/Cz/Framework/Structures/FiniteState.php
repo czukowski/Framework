@@ -75,13 +75,24 @@ class FiniteState
 	}
 
 	/**
-	 * Get all defined machine states.
+	 * Get all defined machine states. May return NULL or throw exception when called while
+	 * the FSM hasn't been defined yet (ie states not set by prior `setDefinition` call).
 	 * 
+	 * @param   boolean  $graceful
 	 * @return  array
+	 * @throws  InvalidStateException
 	 */
-	public function getStates()
+	public function getStates($graceful = FALSE)
 	{
-		return array_keys($this->_states);
+		if (isset($this->_states))
+		{
+			return array_keys($this->_states);
+		}
+		elseif ($graceful)
+		{
+			return NULL;
+		}
+		throw new InvalidStateException('States not initialized.');
 	}
 
 	/**
