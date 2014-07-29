@@ -18,13 +18,12 @@ class FiniteState
 	/**
 	 * @var  array  Valid begin states.
 	 */
-	private $_begin;
+	private $_begin = array();
 	/**
 	 * @var  array  Valid end states.
 	 */
-	private $_end;
+	private $_end = array();
 	/**
-	 *
 	 * @var  mixed  Current state key.
 	 */
 	private $_current;
@@ -34,12 +33,15 @@ class FiniteState
 	private $_states;
 
 	/**
-	 * Get all begin states.
+	 * Get all begin states. May return empty array or throw exception when called
+	 * while the FSM hasn't been defined yet (ie states not set by prior `setDefinition` call).
 	 * 
+	 * @param   boolean  $graceful  If TRUE, return empty value when FSM hasn't been initialized.
 	 * @return  array
 	 */
-	public function getBeginStates()
+	public function getBeginStates($graceful = FALSE)
 	{
+		$this->_validateDefined($graceful);
 		return $this->_begin;
 	}
 
@@ -53,6 +55,7 @@ class FiniteState
 	 */
 	public function getCurrentState($graceful = FALSE)
 	{
+		$this->_validateDefined($graceful);
 		if (isset($this->_current))
 		{
 			return $this->_current;
@@ -61,38 +64,47 @@ class FiniteState
 		{
 			return;
 		}
-		throw new InvalidStateException('FSM not yet initialized.');
+		throw new InvalidStateException('Current state not initialized.');
 	}
 
 	/**
-	 * Get all end states.
+	 * Returns all defined end states. May return empty array or throw exception when called
+	 * while the FSM hasn't been defined yet (ie states not set by prior `setDefinition` call).
 	 * 
+	 * @param   boolean  $graceful  If TRUE, return empty value when FSM hasn't been initialized.
 	 * @return  array
 	 */
-	public function getEndStates()
+	public function getEndStates($graceful = FALSE)
 	{
+		$this->_validateDefined($graceful);
 		return $this->_end;
 	}
 
 	/**
-	 * Get all defined machine states. May return NULL or throw exception when called while
-	 * the FSM hasn't been defined yet (ie states not set by prior `setDefinition` call).
+	 * Get all defined machine states. May return empty array or throw exception when called
+	 * while the FSM hasn't been defined yet (ie states not set by prior `setDefinition` call).
 	 * 
-	 * @param   boolean  $graceful
+	 * @param   boolean  $graceful  If TRUE, return empty value when FSM hasn't been initialized.
 	 * @return  array
-	 * @throws  InvalidStateException
 	 */
 	public function getStates($graceful = FALSE)
 	{
-		if (isset($this->_states))
+		$this->_validateDefined($graceful);
+		return isset($this->_states)
+			? array_keys($this->_states)
+			: array();
+	}
+
+	/**
+	 * @param   boolean  $graceful
+	 * @throws  InvalidStateException
+	 */
+	private function _validateDefined($graceful)
+	{
+		if ( ! isset($this->_states) && ! $graceful)
 		{
-			return array_keys($this->_states);
+			throw new InvalidStateException('States not defined.');
 		}
-		elseif ($graceful)
-		{
-			return NULL;
-		}
-		throw new InvalidStateException('States not initialized.');
 	}
 
 	/**
