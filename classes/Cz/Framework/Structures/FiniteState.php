@@ -96,12 +96,22 @@ class FiniteState
 	}
 
 	/**
+	 * Returns whether there are any machine states defined.
+	 * 
+	 * @return  boolean
+	 */
+	public function isDefined()
+	{
+		return isset($this->_states) && count($this->_states);
+	}
+
+	/**
 	 * @param   boolean  $graceful
 	 * @throws  InvalidStateException
 	 */
 	private function _validateDefined($graceful)
 	{
-		if ( ! isset($this->_states) && ! $graceful)
+		if ( ! $this->isDefined() && ! $graceful)
 		{
 			throw new InvalidStateException('States not defined.');
 		}

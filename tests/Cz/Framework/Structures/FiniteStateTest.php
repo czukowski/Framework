@@ -216,6 +216,25 @@ class FiniteStateTest extends PHPUnit\Testcase
 	}
 
 	/**
+	 * @dataProvider  provideIsDefined
+	 */
+	public function testIsDefined($states, $expected)
+	{
+		$this->setupFSM($states, NULL, NULL);
+		$actual = $this->object->isDefined();
+		$this->assertSame($expected, $actual);
+	}
+
+	public function provideIsDefined()
+	{
+		// [define states, expected is defined]
+		return array(
+			array($this->getSampleDefinition(), TRUE),
+			array(NULL, FALSE),
+		);
+	}
+
+	/**
 	 * Sample FSM for many of the tests.
 	 */
 	private function getSampleDefinition()
