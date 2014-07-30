@@ -125,9 +125,18 @@ class FiniteState
 	 */
 	public function setDefinition($states = array(), $begin = NULL, $end = NULL)
 	{
-		$this->_setStates($states);
-		$this->_setBorderStates($begin, TRUE);
-		$this->_setBorderStates($end, FALSE);
+		$currentStates = $this->_states;
+		try
+		{
+			$this->_setStates($states);
+			$this->_setBorderStates($begin, TRUE);
+			$this->_setBorderStates($end, FALSE);
+		}
+		catch (Exceptions\Exception $e)
+		{
+			$this->_states = $currentStates;
+			throw $e;
+		}
 		return $this;
 	}
 

@@ -290,8 +290,20 @@ class FiniteStateTest extends PHPUnit\Testcase
 	 */
 	public function testDefinitionException($states, $begin, $end, $exceptionMessage)
 	{
-		$this->setExpectedException(get_class(new Exceptions\InvalidArgumentException), $exceptionMessage);
-		$this->object->setDefinition($states, $begin, $end);
+		$initialStates = array('initial' => array());
+		$this->object->setDefinition($initialStates);
+		try
+		{
+			$this->object->setDefinition($states, $begin, $end);
+		}
+		catch (Exceptions\InvalidArgumentException $e)
+		{
+			$this->assertInstanceOf('Cz\Framework\Exceptions\InvalidArgumentException', $e);
+			$this->assertSame($exceptionMessage, $e->getMessage());
+			$actualStates = $this->getObjectProperty($this->object, '_states')
+				->getValue($this->object);
+			$this->assertSame($initialStates, $actualStates);
+		}
 	}
 
 	public function provideDefinitionException()
