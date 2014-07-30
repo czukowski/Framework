@@ -30,7 +30,7 @@ class FiniteState
 	/**
 	 * @var  array  FSM definition. Keys are states and values are valid next states.
 	 */
-	private $_states;
+	private $_states = array();
 
 	/**
 	 * Get all begin states. May return empty array or throw exception when called
@@ -90,9 +90,7 @@ class FiniteState
 	public function getStates($graceful = FALSE)
 	{
 		$this->_validateDefined($graceful);
-		return isset($this->_states)
-			? array_keys($this->_states)
-			: array();
+		return array_keys($this->_states);
 	}
 
 	/**
