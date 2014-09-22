@@ -139,6 +139,119 @@ class FiniteState
 	}
 
 	/**
+	 * Adds a new state.
+	 * 
+	 * @param   mixed  $state
+	 * @return  $this
+	 */
+	public function addState($state)
+	{
+		if ($this->hasState($state))
+		{
+			throw new Exceptions\InvalidArgumentException('State "'.$state.'" already exists.');
+		}
+		$this->_states[$state] = array();
+		return $this;
+	}
+
+	/**
+	 * Tells if state already exists.
+	 * 
+	 * @param   mixed  $state
+	 * @return  boolean
+	 */
+	public function hasState($state)
+	{
+		return array_key_exists($state, $this->_states);
+	}
+
+	/**
+	 * Removes specified state.
+	 * 
+	 * @param   mixed  $state
+	 * @return  $this
+	 */
+	public function removeState($state)
+	{
+		if ( ! $this->hasState($state))
+		{
+			throw new Exceptions\InvalidArgumentException('State "'.$state.'" does not exist.');
+		}
+		unset($this->_states[$state]);
+		return $this;
+	}
+
+	/**
+	 * Adds a new transition between two states.
+	 * 
+	 * @param   mixed  $from
+	 * @param   mixed  $to
+	 * @return  $this
+	 * @throws  Exceptions\InvalidArgumentException
+	 */
+	public function addTransition($from, $to)
+	{
+		if ($this->hasTransition($from, $to))
+		{
+			throw new Exceptions\InvalidArgumentException('Transition from "'.$from.'" to "'.$to.'" already exists.');
+		}
+		$this->_states[$from][] = $to;
+		return $this;
+	}
+
+	/**
+	 * Tells if transition between to states exists.
+	 * 
+	 * @param   mixed  $from
+	 * @param   mixed  $to
+	 * @return  boolean
+	 */
+	public function hasTransition($from, $to)
+	{
+		$this->_validateState($from);
+		$this->_validateState($to);
+		return in_array($to, $this->_states[$from]);
+	}
+
+	/**
+	 * Removes transition. First two arguments may be NULL for mass-removal.
+	 * 
+	 * @param   mixed    $from      If NULL, removes all transitions to the other argument.
+	 * @param   mixed    $to        If NULL, removes all transitions from the other argument.
+	 * @param   boolean  $graceful  If TRUE, no exceptions will be thrown.
+	 * @return  $this
+	 * @throws  Exceptions\InvalidArgumentException
+	 */
+	public function removeTransition($from, $to, $graceful = FALSE)
+	{
+		if ($from === NULL)
+		{
+			// To remove all transitions incoming to the specified state we need to iterate
+			// over all states definitions and.
+			foreach ($this->getStates($graceful) as $state)
+			{
+				$this->removeTransition($state, $to, TRUE);
+			}
+		}
+		elseif ($to === NULL)
+		{
+			// Remove all transition outgoing from the specified state.
+			$this->_validateState($from);
+			$this->_states[$from] = array();
+		}
+		elseif ($this->hasTransition($from, $to))
+		{
+			// Remove `$to` item from the corresponding `$from` array.
+			$this->_states[$from] = array_diff($this->_states[$from], array($to));
+		}
+		elseif ( ! $graceful)
+		{
+			throw new Exceptions\InvalidArgumentException('There is no transition from "'.$from.'" to "'.$to.'"');
+		}
+		return $this;
+	}
+
+	/**
 	 * @param   array  $states
 	 * @throws  Exceptions\InvalidArgumentException
 	 */
@@ -283,7 +396,7 @@ class FiniteState
 	{
 		if ( ! array_key_exists($state, $this->_states))
 		{
-			throw new Exceptions\InvalidArgumentException('Invalid state "'.$state.'" requested.');
+			throw new Exceptions\InvalidArgumentException('Unknown state "'.$state.'".');
 		}
 	}
 }

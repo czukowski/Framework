@@ -235,6 +235,191 @@ class FiniteStateTest extends PHPUnit\Testcase
 	}
 
 	/**
+	 * Test adding a new state.
+	 * 
+	 * @dataProvider  provideAddState
+	 */
+	public function testAddState($states, $state, $expected)
+	{
+		$this->setupFSM($states, NULL, $expected);
+		$return = $this->object->addState($state);
+		$this->assertSame($this->object, $return);
+		$this->assertSame($expected, $this->object->hasState($state));
+	}
+
+	public function provideAddState()
+	{
+		$states = $this->getSampleDefinition();
+		// [define states, add state, expected has state]
+		return array(
+			// Add previously non-existent state.
+			array(array(), 1, TRUE),
+			array($states, 6, TRUE),
+			array($states, 'new state', TRUE),
+			// Add state that already exists.
+			array($states, 3, new Exceptions\InvalidArgumentException),
+		);
+	}
+
+	/**
+	 * Test determining a state already exists or not.
+	 * 
+	 * @dataProvider  provideHasState
+	 */
+	public function testHasState($states, $state, $expected)
+	{
+		$this->setupFSM($states, NULL, NULL);
+		$actual = $this->object->hasState($state);
+		$this->assertSame($expected, $actual);
+	}
+
+	public function provideHasState()
+	{
+		$states = $this->getSampleDefinition();
+		// [define states, state, expected has state]
+		return array(
+			array(NULL, 1, FALSE),
+			array($states, 1, TRUE),
+			array($states, 3, TRUE),
+			array($states, 5, FALSE),
+		);
+	}
+
+	/**
+	 * Test removing a specified state.
+	 * 
+	 * @dataProvider  provideRemoveState
+	 */
+	public function testRemoveState($states, $state, $expected)
+	{
+		$this->setupFSM($states, NULL, $expected);
+		$return = $this->object->removeState($state);
+		$this->assertSame($this->object, $return);
+		$this->assertSame($expected, $this->object->hasState($state));
+	}
+
+	public function provideRemoveState()
+	{
+		$states = $this->getSampleDefinition();
+		// [define states, remove state, expected has state, expected has state]
+		return array(
+			// Remove non-existent state.
+			array($states, 2, FALSE),
+			// Remove non-existent state.
+			array($states, 6, new Exceptions\InvalidArgumentException),
+			array(array(), 1, new Exceptions\InvalidArgumentException),
+		);
+	}
+
+	/**
+	 * Test adding transition between two existing states.
+	 * 
+	 * @dataProvider  provideAddTransition
+	 */
+	public function testAddTransition($states, $from, $to, $expected)
+	{
+		$this->setupFSM($states, NULL, $expected);
+		$return = $this->object->addTransition($from, $to);
+		$this->assertSame($this->object, $return);
+		$this->assertSame($expected, $this->object->hasTransition($from, $to));
+	}
+
+	public function provideAddTransition()
+	{
+		$states = $this->getSampleDefinition();
+		// [define states, add from, add to, expected has transition]
+		return array(
+			// Add new transition.
+			array($states, 3, 1, TRUE),
+			// Add already existing transition.
+			array($states, 1, 2, new Exceptions\InvalidArgumentException),
+			array($states, 1, 3, new Exceptions\InvalidArgumentException),
+			// Add new transition from and to unknown states.
+			array($states, 4, 5, new Exceptions\InvalidArgumentException),
+			array($states, 5, 1, new Exceptions\InvalidArgumentException),
+		);
+	}
+
+	/**
+	 * Test determining whether a transition already exists between two states.
+	 * 
+	 * @dataProvider  provideHasTransition
+	 */
+	public function testHasTransition($states, $from, $to, $expected)
+	{
+		$this->setupFSM($states, NULL, $expected);
+		$actual = $this->object->hasTransition($from, $to);
+		$this->assertSame($expected, $actual);
+	}
+
+	public function provideHasTransition()
+	{
+		$states = $this->getSampleDefinition();
+		// [define states, has from, has to, expected has transition]
+		return array(
+			// Has non-existent transition.
+			array($states, 3, 1, FALSE),
+			// Has existing transition.
+			array($states, 1, 2, TRUE),
+			array($states, 1, 3, TRUE),
+			// Has transitions from and to unknown states.
+			array($states, 4, 5, new Exceptions\InvalidArgumentException),
+			array($states, 5, 1, new Exceptions\InvalidArgumentException),
+		);
+	}
+
+	/**
+	 * Test removing existing transition between two states.
+	 * 
+	 * @dataProvider  provideRemoveTransition
+	 */
+	public function testRemoveTransition($states, $from, $to, $graceful, $expected)
+	{
+		$this->setupFSM($states, NULL, $expected);
+		$return = $this->object->removeTransition($from, $to, $graceful);
+		$this->assertSame($this->object, $return);
+		// If `$expected` was not exception, it must be array of transitions to test for existence.
+		foreach ($expected as $transition)
+		{
+			list ($from, $to, $expectedExists) = $transition;
+			$this->assertSame($expectedExists, $this->object->hasTransition($from, $to));
+		}
+	}
+
+	public function provideRemoveTransition()
+	{
+		$states = $this->getSampleDefinition();
+		// [define states, remove from, remove to, remove gracefully, expected has transitions]
+		return array(
+			// Non-graceful remove non-existent transition.
+			array($states, 4, 1, FALSE, new Exceptions\InvalidArgumentException),
+			// Graceful remove non-existent transition.
+			array($states, 4, 1, TRUE, array()),
+			// Remove transition from and to non-existent states, both gracefully and not.
+			array($states, 1, 5, FALSE, new Exceptions\InvalidArgumentException),
+			array($states, 5, 1, FALSE, new Exceptions\InvalidArgumentException),
+			array($states, 1, 5, TRUE, new Exceptions\InvalidArgumentException),
+			array($states, 5, 1, TRUE, new Exceptions\InvalidArgumentException),
+			array($states, 5, NULL, FALSE, new Exceptions\InvalidArgumentException),
+			array($states, 5, NULL, TRUE, new Exceptions\InvalidArgumentException),
+			array($states, NULL, 5, FALSE, new Exceptions\InvalidArgumentException),
+			array($states, NULL, 5, TRUE, new Exceptions\InvalidArgumentException),
+			// Remove existing transition, both graceful and not.
+			array($states, 1, 2, TRUE, array(array(1, 2, FALSE))),
+			array($states, 1, 3, FALSE, array(array(1, 3, FALSE))),
+			// Remove all transitions from a specified one.
+			array($states, 1, NULL, TRUE, array(array(1, 2, FALSE), array(1, 3, FALSE), array(1, 4, FALSE))),
+			array($states, 2, NULL, FALSE, array(array(2, 2, FALSE), array(2, 3, FALSE), array(2, 4, FALSE))),
+			// Remove all transitions to a specified state.
+			array($states, NULL, 1, TRUE, array()),
+			array($states, NULL, 4, FALSE, array(array(1, 4, FALSE), array(2, 4, FALSE), array(3, 4, FALSE), array(1, 2, TRUE))),
+			// Remove all transitions.
+			array($states, NULL, NULL, TRUE, array(array(1, 2, FALSE), array(1, 3, FALSE), array(1, 4, FALSE), array(2, 2, FALSE), array(2, 3, FALSE), array(2, 4, FALSE), array(3, 4, FALSE))),
+			array($states, NULL, NULL, FALSE, array(array(1, 2, FALSE), array(1, 3, FALSE), array(1, 4, FALSE), array(2, 2, FALSE), array(2, 3, FALSE), array(2, 4, FALSE), array(3, 4, FALSE))),
+		);
+	}
+
+	/**
 	 * Sample FSM for many of the tests.
 	 */
 	private function getSampleDefinition()
