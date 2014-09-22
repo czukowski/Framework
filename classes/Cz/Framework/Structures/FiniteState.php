@@ -16,6 +16,12 @@ use Cz\Framework\Exceptions;
 class FiniteState
 {
 	/**
+	 * Constants defining the properties that contain begin and end states.
+	 */
+	const BEGIN = '_begin';
+	const END = '_end';
+
+	/**
 	 * @var  array  Valid begin states.
 	 */
 	private $_begin = array();
@@ -41,8 +47,68 @@ class FiniteState
 	 */
 	public function getBeginStates($graceful = FALSE)
 	{
+		return $this->_getBorderStates(self::BEGIN, $graceful);
+	}
+
+	/**
+	 * Returns all defined end states. May return empty array or throw exception when called
+	 * while the FSM hasn't been defined yet (ie states not set by prior `setDefinition` call).
+	 * 
+	 * @param   boolean  $graceful  If TRUE, return empty value when FSM hasn't been initialized.
+	 * @return  array
+	 */
+	public function getEndStates($graceful = FALSE)
+	{
+		return $this->_getBorderStates(self::END, $graceful);
+	}
+
+	/**
+	 * Private getter that implements both getters for being and end states.
+	 * 
+	 * @param   string   $property
+	 * @param   boolean  $graceful
+	 * @return  array
+	 */
+	private function _getBorderStates($property, $graceful)
+	{
 		$this->_validateDefined($graceful);
-		return $this->_begin;
+		return $this->{$property};
+	}
+
+	/**
+	 * Set all being states.
+	 * 
+	 * @param   array  $states  Array of states that can be treated as 'begin' states.
+	 * @return  $this
+	 */
+	public function setBeginStates($states)
+	{
+		return $this->_setBorderStates(self::BEGIN, $states);
+	}
+
+	/**
+	 * Set all being states.
+	 * 
+	 * @param   array  $states  Array of states that can be treated as 'end' states.
+	 * @return  $this
+	 */
+	public function setEndStates($states)
+	{
+		return $this->_setBorderStates(self::END, $states);
+	}
+
+	/**
+	 * Private getter that implements both getters for being and end states.
+	 * 
+	 * @param   string  $property
+	 * @param   array   $states
+	 * @return  array
+	 */
+	private function _setBorderStates($property, $states)
+	{
+		$this->_validateStates($states);
+		$this->{$property} = $states;
+		return $this;
 	}
 
 	/**
@@ -65,19 +131,6 @@ class FiniteState
 			return;
 		}
 		throw new InvalidStateException('Current state not initialized.');
-	}
-
-	/**
-	 * Returns all defined end states. May return empty array or throw exception when called
-	 * while the FSM hasn't been defined yet (ie states not set by prior `setDefinition` call).
-	 * 
-	 * @param   boolean  $graceful  If TRUE, return empty value when FSM hasn't been initialized.
-	 * @return  array
-	 */
-	public function getEndStates($graceful = FALSE)
-	{
-		$this->_validateDefined($graceful);
-		return $this->_end;
 	}
 
 	/**
@@ -120,6 +173,7 @@ class FiniteState
 	 * @param   array|NULL  $begin   Valid beginning states (NULL = autodetect)
 	 * @param   array|NULL  $end     Valid ending states (NULL = autodetect)
 	 * @return  $this
+	 * @deprecated
 	 */
 	public function setDefinition($states = array(), $begin = NULL, $end = NULL)
 	{
@@ -127,8 +181,8 @@ class FiniteState
 		try
 		{
 			$this->_setStates($states);
-			$this->_setBorderStates($begin, TRUE);
-			$this->_setBorderStates($end, FALSE);
+			$this->_setAllBorderStates($begin, TRUE);
+			$this->_setAllBorderStates($end, FALSE);
 		}
 		catch (Exceptions\Exception $e)
 		{
@@ -276,8 +330,9 @@ class FiniteState
 	 * @param   array|NULL  $states  States to set as begin or end states.
 	 * @param   boolean     $begin   TRUE = 1st argument are begin states, else end states.
 	 * @throws  Exceptions\InvalidArgumentException
+	 * @deprecated
 	 */
-	private function _setBorderStates($states, $begin)
+	private function _setAllBorderStates($states, $begin)
 	{
 		if ($states !== NULL && ! is_array($states))
 		{
@@ -298,6 +353,7 @@ class FiniteState
 	 * Detects states that no other state linkes to or from.
 	 * 
 	 * @param  boolean  $begin
+	 * @deprecated
 	 */
 	private function _detectBorderStates($begin)
 	{
@@ -327,6 +383,7 @@ class FiniteState
 	 * @param   array  $subset
 	 * @param   array  $fullSet
 	 * @throws  Exceptions\InvalidArgumentException
+	 * @deprecated
 	 */
 	private function _isSubset($subset, $fullSet)
 	{
@@ -384,6 +441,20 @@ class FiniteState
 			$this->_validateState($from);
 		}
 		return in_array($state, $this->_states[$from]);
+	}
+
+	/**
+	 * Validates argument is an array and each of its elements is a defined FSM state.
+	 * 
+	 * @param   array  $states
+	 * @throws  Exceptions\InvalidArgumentException
+	 */
+	private function _validateStates($states)
+	{
+		foreach ($states as $state)
+		{
+			$this->_validateState($state);
+		}
 	}
 
 	/**

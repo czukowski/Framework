@@ -17,6 +17,86 @@ use Cz\PHPUnit,
 class FiniteStateTest extends PHPUnit\Testcase
 {
 	/**
+	 * Test `getBeginStates` method, both graceful and otherwise.
+	 * 
+	 * @dataProvider  provideGetBorderStates
+	 */
+	public function testGetBeginStates($states, $graceful, $expected)
+	{
+		$this->setupFSM($states, NULL, $expected);
+		$actual = $this->object->getBeginStates($graceful);
+		$this->assertSame($expected, $actual);
+	}
+
+	/**
+	 * Test `getEndStates` method, both graceful and otherwise.
+	 * 
+	 * @dataProvider  provideGetBorderStates
+	 */
+	public function testGetEndStates($states, $graceful, $null, $expected)
+	{
+		$this->setupFSM($states, NULL, $expected);
+		$actual = $this->object->getEndStates($graceful);
+		$this->assertSame($expected, $actual);
+	}
+
+	public function provideGetBorderStates()
+	{
+		$states = $this->getSampleDefinition();
+		// [all states, graceful request, expected begin states]
+		return array(
+			// Get border states from defined FSM, regardless of graceful option.
+			array($states, FALSE, array(1), array(4)),
+			array($states, TRUE, array(1), array(4)),
+			// Get border states from undefined FSM, gracefully.
+			array(NULL, TRUE, array(), array()),
+			// Get border states from undefined FSM, with exception.
+			array(NULL, FALSE, new InvalidStateException, new InvalidStateException),
+		);
+	}
+
+	/**
+	 * Test `setBeginStates` method.
+	 * 
+	 * @dataProvider  provideSetBorderStates
+	 */
+	public function testSetBeginStates($states, $begin, $expected)
+	{
+		$this->setupFSM($states, NULL, $expected);
+		$object = $this->object->setBeginStates($begin);
+		$this->assertSame($this->object, $object);
+		$this->assertEquals($expected, $this->object->getBeginStates());
+	}
+
+	/**
+	 * Test `setEndStates` method.
+	 * 
+	 * @dataProvider  provideSetBorderStates
+	 */
+	public function testSetEndStates($states, $begin, $expected)
+	{
+		$this->setupFSM($states, NULL, $expected);
+		$object = $this->object->setEndStates($begin);
+		$this->assertSame($this->object, $object);
+		$this->assertEquals($expected, $this->object->getEndStates());
+	}
+
+	public function provideSetBorderStates()
+	{
+		$states = $this->getSampleDefinition();
+		// [all states, graceful request, expected begin states]
+		return array(
+			// Set border states in defined FSM.
+			array($states, array(1), array(1)),
+			array($states, array(1, 4), array(1, 4)),
+			// Set invalid border states in defined FSM.
+			array($states, array(1, 10), new Exceptions\InvalidArgumentException),
+			// Set border states in undefined FSM.
+			array(NULL, array(1), new Exceptions\InvalidArgumentException),
+		);
+	}
+
+	/**
 	 * Test `canSwitchState` method, including exceptions on invalid arguments.
 	 * 
 	 * @dataProvider  provideCanSwitchState
@@ -55,45 +135,6 @@ class FiniteStateTest extends PHPUnit\Testcase
 			array($states, 1, 3, 5, new Exceptions\InvalidArgumentException),
 			// Current: 3, switch invalid -> invalid.
 			array($states, 1, 6, 5, new Exceptions\InvalidArgumentException),
-		);
-	}
-
-	/**
-	 * Test `getBeginStates` method, both graceful and otherwise.
-	 * 
-	 * @dataProvider  provideGetBorderStates
-	 */
-	public function testGetBeginStates($states, $graceful, $expected)
-	{
-		$this->setupFSM($states, NULL, $expected);
-		$actual = $this->object->getBeginStates($graceful);
-		$this->assertSame($expected, $actual);
-	}
-
-	/**
-	 * Test `getEndStates` method, both graceful and otherwise.
-	 * 
-	 * @dataProvider  provideGetBorderStates
-	 */
-	public function testGetEndStates($states, $graceful, $null, $expected)
-	{
-		$this->setupFSM($states, NULL, $expected);
-		$actual = $this->object->getEndStates($graceful);
-		$this->assertSame($expected, $actual);
-	}
-
-	public function provideGetBorderStates()
-	{
-		$states = $this->getSampleDefinition();
-		// [all states, graceful request, expected begin states]
-		return array(
-			// Get border states from defined FSM, regardless of graceful option.
-			array($states, FALSE, array(1), array(4)),
-			array($states, TRUE, array(1), array(4)),
-			// Get border states from undefined FSM, gracefully.
-			array(NULL, TRUE, array(), array()),
-			// Get border states from undefined FSM, with exception.
-			array(NULL, FALSE, new InvalidStateException, new InvalidStateException),
 		);
 	}
 
