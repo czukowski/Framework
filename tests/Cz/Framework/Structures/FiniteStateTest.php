@@ -42,7 +42,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 
 	public function provideGetBorderStates()
 	{
-		$states = $this->getSampleDefinition();
+		$states = $this->_getSampleDefinition();
 		// [all states, graceful request, expected begin states]
 		return array(
 			// Get border states from defined FSM, regardless of graceful option.
@@ -83,7 +83,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 
 	public function provideSetBorderStates()
 	{
-		$states = $this->getSampleDefinition();
+		$states = $this->_getSampleDefinition();
 		// [all states, graceful request, expected begin states]
 		return array(
 			// Set border states in defined FSM.
@@ -93,6 +93,65 @@ class FiniteStateTest extends PHPUnit\Testcase
 			array($states, array(1, 10), new Exceptions\InvalidArgumentException),
 			// Set border states in undefined FSM.
 			array(NULL, array(1), new Exceptions\InvalidArgumentException),
+		);
+	}
+
+	/**
+	 * Test `getCurrentState` method, both graceful and otherwise.
+	 * 
+	 * @dataProvider  provideGetCurrentState
+	 */
+	public function testGetCurrentState($states, $current, $graceful, $expected)
+	{
+		$this->setupFSM($states, $current, $expected);
+		$actual = $this->object->getCurrentState($graceful);
+		$this->assertSame($expected, $actual);
+	}
+
+	public function provideGetCurrentState()
+	{
+		$states = $this->_getSampleDefinition();
+		// [all states, set current state, graceful request, expected result]
+		return array(
+			// Get current state from initialized FSM, regardless of graceful option.
+			array($states, 1, TRUE, 1),
+			array($states, 2, FALSE, 2),
+			array($states, 3, TRUE, 3),
+			array($states, 4, FALSE, 4),
+			// Get current state from uninitialized FSM, gracefully.
+			array($states, NULL, TRUE, NULL),
+			// Get current state from uninitialized FSM, with exception.
+			array($states, NULL, FALSE, new InvalidStateException),
+		);
+	}
+
+	/**
+	 * Test `setCurrentState` method, including exceptions on invalid arguments.
+	 * 
+	 * @dataProvider  provideSetCurrentState
+	 */
+	public function testSetCurrentState($states, $current, $expected)
+	{
+		$this->setupFSM($states, NULL, $expected);
+		$return = $this->object->setCurrentState($current);
+		$this->assertSame($this->object, $return);
+		$actual = $this->_getObjectCurrentState();
+		$this->assertSame($expected, $actual);
+	}
+
+	public function provideSetCurrentState()
+	{
+		$states = $this->_getSampleDefinition();
+		// [all states, set current state, expected result]
+		return array(
+			// Set valid current states.
+			array($states, 1, 1),
+			array($states, 2, 2),
+			array($states, 3, 3),
+			array($states, 4, 4),
+			// Set invalid current states.
+			array($states, 5, new Exceptions\InvalidArgumentException),
+			array($states, NULL, new Exceptions\InvalidArgumentException),
 		);
 	}
 
@@ -110,7 +169,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 
 	public function provideCanSwitchState()
 	{
-		$states = $this->getSampleDefinition();
+		$states = $this->_getSampleDefinition();
 		// [all states, current state, switch to state, switch from state, expected result]
 		return array(
 			// Current: 1, switch 1 -> 2.
@@ -139,65 +198,6 @@ class FiniteStateTest extends PHPUnit\Testcase
 	}
 
 	/**
-	 * Test `getCurrentState` method, both graceful and otherwise.
-	 * 
-	 * @dataProvider  provideGetCurrentState
-	 */
-	public function testGetCurrentState($states, $current, $graceful, $expected)
-	{
-		$this->setupFSM($states, $current, $expected);
-		$actual = $this->object->getCurrentState($graceful);
-		$this->assertSame($expected, $actual);
-	}
-
-	public function provideGetCurrentState()
-	{
-		$states = $this->getSampleDefinition();
-		// [all states, set current state, graceful request, expected result]
-		return array(
-			// Get current state from initialized FSM, regardless of graceful option.
-			array($states, 1, TRUE, 1),
-			array($states, 2, FALSE, 2),
-			array($states, 3, TRUE, 3),
-			array($states, 4, FALSE, 4),
-			// Get current state from uninitialized FSM, gracefully.
-			array($states, NULL, TRUE, NULL),
-			// Get current state from uninitialized FSM, with exception.
-			array($states, NULL, FALSE, new InvalidStateException),
-		);
-	}
-
-	/**
-	 * Test `setCurrentState` method, including exceptions on invalid arguments.
-	 * 
-	 * @dataProvider  provideSetCurrentState
-	 */
-	public function testSetCurrentState($states, $current, $expected)
-	{
-		$this->setupFSM($states, NULL, $expected);
-		$return = $this->object->setCurrentState($current);
-		$this->assertSame($this->object, $return);
-		$actual = $this->getObjectCurrentState();
-		$this->assertSame($expected, $actual);
-	}
-
-	public function provideSetCurrentState()
-	{
-		$states = $this->getSampleDefinition();
-		// [all states, set current state, expected result]
-		return array(
-			// Set valid current states.
-			array($states, 1, 1),
-			array($states, 2, 2),
-			array($states, 3, 3),
-			array($states, 4, 4),
-			// Set invalid current states.
-			array($states, 5, new Exceptions\InvalidArgumentException),
-			array($states, NULL, new Exceptions\InvalidArgumentException),
-		);
-	}
-
-	/**
 	 * @dataProvider  provideSwitchState
 	 */
 	public function testSwitchState($states, $current, $switchTo, $expected)
@@ -205,13 +205,13 @@ class FiniteStateTest extends PHPUnit\Testcase
 		$this->setupFSM($states, $current, $expected);
 		$return = $this->object->switchState($switchTo);
 		$this->assertSame($this->object, $return);
-		$actual = $this->getObjectCurrentState();
+		$actual = $this->_getObjectCurrentState();
 		$this->assertSame($expected, $actual);
 	}
 
 	public function provideSwitchState()
 	{
-		$states = $this->getSampleDefinition();
+		$states = $this->_getSampleDefinition();
 		// [all states, set current state, switch to state, expected result]
 		return array(
 			// Switch state in uninitialized FSM.
@@ -225,7 +225,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 		);
 	}
 
-	private function getObjectCurrentState()
+	private function _getObjectCurrentState()
 	{
 		return $this->getObjectProperty($this->object, '_current')
 			->getValue($this->object);
@@ -243,7 +243,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 
 	public function provideGetStates()
 	{
-		$states = $this->getSampleDefinition();
+		$states = $this->_getSampleDefinition();
 		// [define states, graceful request, expected get states]
 		return array(
 			// Retrieving states from defined FSM, regardless of graceful option.
@@ -270,7 +270,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 	{
 		// [define states, expected is defined]
 		return array(
-			array($this->getSampleDefinition(), TRUE),
+			array($this->_getSampleDefinition(), TRUE),
 			array(NULL, FALSE),
 		);
 	}
@@ -290,7 +290,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 
 	public function provideAddState()
 	{
-		$states = $this->getSampleDefinition();
+		$states = $this->_getSampleDefinition();
 		// [define states, add state, expected has state]
 		return array(
 			// Add previously non-existent state.
@@ -316,7 +316,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 
 	public function provideHasState()
 	{
-		$states = $this->getSampleDefinition();
+		$states = $this->_getSampleDefinition();
 		// [define states, state, expected has state]
 		return array(
 			array(NULL, 1, FALSE),
@@ -341,7 +341,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 
 	public function provideRemoveState()
 	{
-		$states = $this->getSampleDefinition();
+		$states = $this->_getSampleDefinition();
 		// [define states, remove state, expected has state, expected has state]
 		return array(
 			// Remove non-existent state.
@@ -367,7 +367,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 
 	public function provideAddTransition()
 	{
-		$states = $this->getSampleDefinition();
+		$states = $this->_getSampleDefinition();
 		// [define states, add from, add to, expected has transition]
 		return array(
 			// Add new transition.
@@ -395,7 +395,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 
 	public function provideHasTransition()
 	{
-		$states = $this->getSampleDefinition();
+		$states = $this->_getSampleDefinition();
 		// [define states, has from, has to, expected has transition]
 		return array(
 			// Has non-existent transition.
@@ -429,7 +429,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 
 	public function provideRemoveTransition()
 	{
-		$states = $this->getSampleDefinition();
+		$states = $this->_getSampleDefinition();
 		// [define states, remove from, remove to, remove gracefully, expected has transitions]
 		return array(
 			// Non-graceful remove non-existent transition.
@@ -463,7 +463,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 	/**
 	 * Sample FSM for many of the tests.
 	 */
-	private function getSampleDefinition()
+	private function _getSampleDefinition()
 	{
 		return array(
 			1 => array(2, 3, 4),
@@ -487,7 +487,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 
 	public function provideDefinition()
 	{
-		$states = $this->getSampleDefinition();
+		$states = $this->_getSampleDefinition();
 		// [all states, begin states, end states, expected states, expected begin, expected end]
 		return array(
 			// Simple FSM, begin & end states defined explicitly.
@@ -610,7 +610,7 @@ class FiniteStateTest extends PHPUnit\Testcase
 		$this->setupObject();
 	}
 
-	private function setupFSM($states, $current, $expected)
+	public function setupFSM($states, $current, $expected)
 	{
 		$this->setExpectedExceptionFromArgument($expected);
 		if ($states)
