@@ -147,6 +147,20 @@ class FiniteState
 	}
 
 	/**
+	 * Return all states that directly follow the 'from' state.
+	 * 
+	 * @param   mixed    $from
+	 * @param   boolean  $graceful
+	 * @return  array
+	 */
+	public function getTransitionsFrom($from, $graceful = FALSE)
+	{
+		$this->_validateState($from);
+		$this->_validateDefined($graceful);
+		return $this->_states[$from];
+	}
+
+	/**
 	 * Returns whether there are any machine states defined.
 	 * 
 	 * @return  boolean
@@ -166,30 +180,6 @@ class FiniteState
 		{
 			throw new InvalidStateException('States not defined.');
 		}
-	}
-
-	/**
-	 * @param   array       $states  All machine states definition
-	 * @param   array|NULL  $begin   Valid beginning states (NULL = autodetect)
-	 * @param   array|NULL  $end     Valid ending states (NULL = autodetect)
-	 * @return  $this
-	 * @deprecated
-	 */
-	public function setDefinition($states = array(), $begin = NULL, $end = NULL)
-	{
-		$currentStates = $this->_states;
-		try
-		{
-			$this->_setStates($states);
-			$this->_setAllBorderStates($begin, TRUE);
-			$this->_setAllBorderStates($end, FALSE);
-		}
-		catch (Exceptions\Exception $e)
-		{
-			$this->_states = $currentStates;
-			throw $e;
-		}
-		return $this;
 	}
 
 	/**
@@ -303,91 +293,6 @@ class FiniteState
 			throw new Exceptions\InvalidArgumentException('There is no transition from "'.$from.'" to "'.$to.'"');
 		}
 		return $this;
-	}
-
-	/**
-	 * @param   array  $states
-	 * @throws  Exceptions\InvalidArgumentException
-	 */
-	private function _setStates($states = array())
-	{
-		if ( ! is_array($states))
-		{
-			throw new Exceptions\InvalidArgumentException('States definition must be array.');
-		}
-		$allStates = array_keys($states);
-		foreach ($states as $state => $nextStates)
-		{
-			if ( ! $this->_isSubset($nextStates, $allStates))
-			{
-				throw new Exceptions\InvalidArgumentException('Invalid next states found for state "'.$state.'".');
-			}
-		}
-		$this->_states = $states;
-	}
-
-	/**
-	 * @param   array|NULL  $states  States to set as begin or end states.
-	 * @param   boolean     $begin   TRUE = 1st argument are begin states, else end states.
-	 * @throws  Exceptions\InvalidArgumentException
-	 * @deprecated
-	 */
-	private function _setAllBorderStates($states, $begin)
-	{
-		if ($states !== NULL && ! is_array($states))
-		{
-			throw new Exceptions\InvalidArgumentException(($begin ? 'Begin' : 'End').' states definition must be array or NULL for auto-detection.');
-		}
-		elseif (is_array($states) && ! $this->_isSubset($states, $this->getStates()))
-		{
-			throw new Exceptions\InvalidArgumentException('Invalid state found in '.($begin ? 'begin' : 'end').' states.');
-		}
-		elseif ($states === NULL)
-		{
-			$states = $this->_detectBorderStates($begin);
-		}
-		$this->{($begin ? '_begin' : '_end')} = $states;
-	}
-
-	/**
-	 * Detects states that no other state linkes to or from.
-	 * 
-	 * @param  boolean  $begin
-	 * @deprecated
-	 */
-	private function _detectBorderStates($begin)
-	{
-		$allStates = $this->getStates();
-		$counter = array_combine($allStates, array_fill(0, count($allStates), 0));
-		foreach ($this->_states as $from => $nextStates)
-		{
-			foreach ($nextStates as $to)
-			{
-				$counter[$begin ? $to : $from]++;
-			}
-		}
-		$borderStates = array();
-		foreach ($counter as $state => $linksCount)
-		{
-			if ($linksCount === 0)
-			{
-				$borderStates[] = $state;
-			}
-		}
-		return $borderStates;
-	}
-
-	/**
-	 * Validates the first argument is a subset of the second argument.
-	 * 
-	 * @param   array  $subset
-	 * @param   array  $fullSet
-	 * @throws  Exceptions\InvalidArgumentException
-	 * @deprecated
-	 */
-	private function _isSubset($subset, $fullSet)
-	{
-		return ! array_diff($subset, $fullSet);
 	}
 
 	/**

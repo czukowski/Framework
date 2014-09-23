@@ -1,7 +1,6 @@
 <?php
 namespace Cz\Framework\Structures;
-use Cz\PHPUnit,
-	Cz\Framework\Exceptions;
+use Cz\Framework\Exceptions;
 
 /**
  * FiniteStateTest
@@ -14,7 +13,7 @@ use Cz\PHPUnit,
  * 
  * @property  FiniteState  $object
  */
-class FiniteStateTest extends PHPUnit\Testcase
+class FiniteStateTest extends Testcase
 {
 	/**
 	 * Test `getBeginStates` method, both graceful and otherwise.
@@ -460,151 +459,6 @@ class FiniteStateTest extends PHPUnit\Testcase
 		);
 	}
 
-	/**
-	 * Sample FSM for many of the tests.
-	 */
-	private function _getSampleDefinition()
-	{
-		return array(
-			1 => array(2, 3, 4),
-			2 => array(2, 3, 4),
-			3 => array(4),
-			4 => array(),
-		);
-	}
-
-	/**
-	 * @dataProvider  provideDefinition
-	 */
-	public function testDefinition($states, $begin, $end, $expectedStates, $expectedBegin, $expectedEnd)
-	{
-		$return = $this->object->setDefinition($states, $begin, $end);
-		$this->assertSame($this->object, $return);
-		$this->assertSame($expectedStates, $this->object->getStates());
-		$this->assertSame($expectedBegin, $this->object->getBeginStates());
-		$this->assertSame($expectedEnd, $this->object->getEndStates());
-	}
-
-	public function provideDefinition()
-	{
-		$states = $this->_getSampleDefinition();
-		// [all states, begin states, end states, expected states, expected begin, expected end]
-		return array(
-			// Simple FSM, begin & end states defined explicitly.
-			array(
-				$states,
-				array(1),
-				array(4),
-				array(1, 2, 3, 4),
-				array(1),
-				array(4),
-			),
-			// Same FSM as before, begin & end states autodetected.
-			array(
-				$states,
-				NULL,
-				NULL,
-				array(1, 2, 3, 4),
-				array(1),
-				array(4),
-			),
-		);
-	}
-
-	/**
-	 * @dataProvider  provideDefinitionException
-	 */
-	public function testDefinitionException($states, $begin, $end, $exceptionMessage)
-	{
-		$initialStates = array('initial' => array());
-		$this->object->setDefinition($initialStates);
-		try
-		{
-			$this->object->setDefinition($states, $begin, $end);
-		}
-		catch (Exceptions\InvalidArgumentException $e)
-		{
-			$this->assertInstanceOf('Cz\Framework\Exceptions\InvalidArgumentException', $e);
-			$this->assertSame($exceptionMessage, $e->getMessage());
-			$actualStates = $this->getObjectProperty($this->object, '_states')
-				->getValue($this->object);
-			$this->assertSame($initialStates, $actualStates);
-		}
-	}
-
-	public function provideDefinitionException()
-	{
-		// [all states, begin states, end states]
-		return array(
-			// Invalid state definition.
-			array(
-				'not array',
-				NULL,
-				NULL,
-				'States definition must be array.',
-			),
-			// Missing state '4' definition.
-			array(
-				array(
-					1 => array(2, 3),
-					2 => array(2, 3, 4),
-					3 => array(4),
-				),
-				NULL,
-				NULL,
-				'Invalid next states found for state "2".',
-			),
-			// Invalid begin state argument type definition.
-			array(
-				array(
-					1 => array(2, 3),
-					2 => array(2, 3, 4),
-					3 => array(4),
-					4 => array(),
-				),
-				1,
-				NULL,
-				'Begin states definition must be array or NULL for auto-detection.',
-			),
-			// Invalid begin state definition.
-			array(
-				array(
-					1 => array(2, 3),
-					2 => array(2, 3, 4),
-					3 => array(4),
-					4 => array(),
-				),
-				array(5),
-				NULL,
-				'Invalid state found in begin states.',
-			),
-			// Invalid end state definition.
-			array(
-				array(
-					1 => array(2, 3),
-					2 => array(2, 3, 4),
-					3 => array(4),
-					4 => array(),
-				),
-				array(1),
-				4,
-				'End states definition must be array or NULL for auto-detection.',
-			),
-			// Invalid end state definition.
-			array(
-				array(
-					1 => array(2, 3),
-					2 => array(2, 3, 4),
-					3 => array(4),
-					4 => array(),
-				),
-				array(1),
-				array(6),
-				'Invalid state found in end states.',
-			),
-		);
-	}
-
 	public function setUp()
 	{
 		$this->setupObject();
@@ -615,7 +469,8 @@ class FiniteStateTest extends PHPUnit\Testcase
 		$this->setExpectedExceptionFromArgument($expected);
 		if ($states)
 		{
-			$this->object->setDefinition($states);
+			$this->_getFactory()
+				->setupFSM($this->object, $states);
 		}
 		if ($current)
 		{
