@@ -25,12 +25,12 @@ class MethodAccessObjectTest extends Testcase
 	{
 		foreach ($items as $key => $value)
 		{
-			$this->assertFalse($this->object->{$this->getCustomMethodName('exists', $key)}());
+			$this->assertFalse($this->object->{$this->getCustomMethodName('has', $key)}());
 			$this->object->{$this->getCustomMethodName('set', $key)}($value);
 			$this->assertSame($value, $this->object->{$this->getCustomMethodName('get', $key)}($value));
-			$this->assertTrue($this->object->{$this->getCustomMethodName('exists', $key)}());
+			$this->assertTrue($this->object->{$this->getCustomMethodName('has', $key)}());
 			$this->object->{$this->getCustomMethodName('erase', $key)}();
-			$this->assertFalse($this->object->{$this->getCustomMethodName('exists', $key)}());
+			$this->assertFalse($this->object->{$this->getCustomMethodName('has', $key)}());
 		}
 	}
 

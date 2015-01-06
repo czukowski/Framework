@@ -103,19 +103,19 @@ class ObjectEventsTest extends Testcase
 	}
 
 	/**
-	 * Tests object issetter event firing by setting up event listeners and calling the `exists`
+	 * Tests object issetter event firing by setting up event listeners and calling the `has`
 	 * method.
 	 * 
-	 * @dataProvider  provideExists
+	 * @dataProvider  provideHas
 	 */
-	public function testExists($arguments, $expected)
+	public function testHas($arguments, $expected)
 	{
-		$this->setupEvents('exists');
-		$this->invokeObjectMethod('exists', $arguments);
+		$this->setupEvents('has');
+		$this->invokeObjectMethod('has', $arguments);
 		$this->assertSame($expected, $this->callbackArguments);
 	}
 
-	public function provideExists()
+	public function provideHas()
 	{
 		return array(
 			array(

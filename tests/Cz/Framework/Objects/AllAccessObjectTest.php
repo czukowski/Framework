@@ -32,7 +32,7 @@ class AllAccessObjectTest extends Testcase
 			$this->assertSame($value, $this->object->{$this->getCustomMethodName('get', $key)}());
 			$this->assertTrue(isset($this->object[$key]));
 			unset($this->object->{$key});
-			$this->assertFalse($this->object->{$this->getCustomMethodName('exists', $key)}());
+			$this->assertFalse($this->object->{$this->getCustomMethodName('has', $key)}());
 		}
 	}
 }

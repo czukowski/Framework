@@ -8,7 +8,7 @@ namespace Cz\Framework\Objects;
  * 
  *   - `$object->key` equals to `$object->get('key')`
  *   - `$object->key = 'value'` equals to `$object->set('key', 'value')`
- *   - `isset($object->key)` equals to `$object->exists('key')`
+ *   - `isset($object->key)` equals to `$object->has('key')`
  *   - `unset($object->key)` equals to `$object->erase('key')`
  * 
  * @package    Framework
@@ -25,7 +25,7 @@ trait PropertyAccess
 	 */
 	public function __isset($key)
 	{
-		return $this->exists($key);
+		return $this->has($key);
 	}
 
 	/**
@@ -60,7 +60,7 @@ trait PropertyAccess
 	 * Abstract methods declaration to ensure this trait is applied to the right kind of class.
 	 */
 	abstract public function erase($key = NULL);
-	abstract public function exists($key);
+	abstract public function has($key);
 	abstract public function get($key, $default = NULL);
 	abstract public function set($key, $value = NULL);
 }

@@ -42,7 +42,7 @@ abstract class Testcase extends PHPUnit\Testcase
 	}
 
 	/**
-	 * Setup unmocked fixture for tests invoking generic access methods (get, set, exists, erase).
+	 * Setup unmocked fixture for tests invoking generic access methods (get, set, has, erase).
 	 */
 	public function setUp()
 	{

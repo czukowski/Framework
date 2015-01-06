@@ -69,17 +69,17 @@ abstract class ObjectEvents extends ObjectBase
 	}
 
 	/**
-	 * Object getter method that fires 'before-exists' and 'after-exists' events.
+	 * Object getter method that fires 'before-has' and 'after-has' events.
 	 * Take care not to call object's issetter in the event handlers!
 	 * 
 	 * @param   string  $key
 	 * @return  boolean
 	 */
-	protected function _exists($key)
+	protected function _has($key)
 	{
-		$this->fireEvent('before-exists', func_get_args());
-		$value = parent::_exists($key);
-		$this->fireEvent('after-exists', func_get_args());
+		$this->fireEvent('before-has', func_get_args());
+		$value = parent::_has($key);
+		$this->fireEvent('after-has', func_get_args());
 		return $value;
 	}
 }

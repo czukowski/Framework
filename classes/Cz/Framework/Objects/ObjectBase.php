@@ -6,7 +6,7 @@ use Cz\Framework\Exceptions;
  * ObjectBase
  * 
  * This class provides a generic container for multiple key-value pairs. Generic access methods
- * are provided: `get($key, $default)`, `set($key, $value)`, `exists($key)` and `erase($key)`.
+ * are provided: `get($key, $default)`, `set($key, $value)`, `has($key)` and `erase($key)`.
  * 
  * Custom access methods are supported. For example, you may wish to load a default value
  * for a `name` key if it's not set. In order to do that, you may define a custom method named
@@ -60,14 +60,14 @@ abstract class ObjectBase
 	 * @param   string  $key
 	 * @return  boolean
 	 */
-	public function exists($key)
+	public function has($key)
 	{
 		$customIssetter = $this->_getMethodName(__FUNCTION__, $key);
 		if (method_exists($this, $customIssetter))
 		{
 			return $this->$customIssetter();
 		}
-		return $this->_exists($key);
+		return $this->_has($key);
 	}
 
 	/**
@@ -176,7 +176,7 @@ abstract class ObjectBase
 	 * @param   string  $key
 	 * @return  boolean
 	 */
-	protected function _exists($key)
+	protected function _has($key)
 	{
 		return isset($this->container[$key]);
 	}

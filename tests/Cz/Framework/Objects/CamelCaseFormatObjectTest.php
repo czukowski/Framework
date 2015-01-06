@@ -32,7 +32,7 @@ class CamelCaseFormatObjectTest extends Testcase
 			array('get', 'some', 'getSome'),
 			array('get', 0, 'get0'),
 			array('set', 1, 'set1'),
-			array('exists', 'someValue', 'existsSomeValue'),
+			array('has', 'someValue', 'hasSomeValue'),
 			array('other', 'value', 'otherValue'),
 			// Method doesn't deal with method name validation and will still return a value.
 			array('erase', 'some-string', 'eraseSome-string'),
@@ -58,7 +58,7 @@ class CamelCaseFormatObjectTest extends Testcase
 			// Common use cases.
 			array('getSomething', 'get', 'something'),
 			array('setAnother', 'set', 'another'),
-			array('existsThat', 'exists', 'that'),
+			array('hasThat', 'has', 'that'),
 			array('eraseStuff', 'erase', 'stuff'),
 			// Method doesn't deal with method name validation and will still return a value,
 			// as long as there's a valid access type.
@@ -66,7 +66,7 @@ class CamelCaseFormatObjectTest extends Testcase
 			array('getSome Thing', 'get', 'some Thing'),
 			array('get Some Thing', 'get', ' Some Thing'),
 			// But it'll return NULLs if encountered unknown access type (ie anything but
-			// `get`, `set`, `exists` or `erase`).
+			// `get`, `set`, `has` or `erase`).
 			array('forgetSome', NULL, NULL),
 		);
 	}

@@ -49,9 +49,9 @@ trait CamelCaseFormat
 		{
 			return array('set', lcfirst(substr($method, 3)));
 		}
-		elseif (strpos($method, 'exists') === 0)
+		elseif (strpos($method, 'has') === 0)
 		{
-			return array('exists', lcfirst(substr($method, 6)));
+			return array('has', lcfirst(substr($method, 3)));
 		}
 		elseif (strpos($method, 'erase') === 0)
 		{

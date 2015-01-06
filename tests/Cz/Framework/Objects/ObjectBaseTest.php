@@ -28,12 +28,12 @@ class ObjectBaseTest extends Testcase
 	{
 		foreach ($items as $key => $value)
 		{
-			$this->assertFalse($this->object->exists($key));
+			$this->assertFalse($this->object->has($key));
 			$this->object->set($key, $value);
 			$this->assertSame($value, $this->object->get($key));
-			$this->assertTrue($this->object->exists($key));
+			$this->assertTrue($this->object->has($key));
 			$this->object->erase($key);
-			$this->assertFalse($this->object->exists($key));
+			$this->assertFalse($this->object->has($key));
 		}
 	}
 
@@ -189,20 +189,20 @@ class ObjectBaseTest extends Testcase
 	}
 
 	/**
-	 * Similarly to the previous tests, testing the custom "issetter" methods, eg. `existsSomething()`
-	 * by calling the generic `exists()` method.
+	 * Similarly to the previous tests, testing the custom "issetter" methods, eg. `hasSomething()`
+	 * by calling the generic `has()` method.
 	 * 
 	 * @test
 	 * @dataProvider  provideItems
 	 */
 	public function testCustomIssetter($items)
 	{
-		$this->setupCustomMethods('exists', $items);
+		$this->setupCustomMethods('has', $items);
 		$expected = array();
 		foreach (array_keys($items) as $key)
 		{
-			$this->object->exists($key);
-			$expected[] = array($this->getCustomMethodName('callbackexists', $key), array());
+			$this->object->has($key);
+			$expected[] = array($this->getCustomMethodName('callbackhas', $key), array());
 		}
 		$this->assertSame($expected, $this->callbackArguments);
 	}

@@ -10,7 +10,7 @@ use Cz\Framework\Exceptions;
  * 
  *   - `$object->getKey()` equals to `$object->get('key')`
  *   - `$object->setKey('value')` equals to `$object->set('key', 'value')`
- *   - `$object->existsKey()` equals to `$object->exists('key')`
+ *   - `$object->hasKey()` equals to `$object->has('key')`
  *   - `$object->eraseKey()` equals to `$object->erase('key')`
  * 
  * Obviously, the custom methods may still be implemented to override the default logic.
@@ -50,8 +50,8 @@ trait MethodAccess
 					return $this->_set($key, reset($args));
 				}
 				throw new Exceptions\InvalidArgumentException('Cannot call without argument: '.$method);
-			case 'exists':
-				return $this->_exists($key);
+			case 'has':
+				return $this->_has($key);
 			case 'erase':
 				return $this->_erase($key);
 		}
@@ -63,7 +63,7 @@ trait MethodAccess
 	 */
 	abstract protected function _getAccessParameters($method);
 	abstract public function erase($key = NULL);
-	abstract public function exists($key);
+	abstract public function has($key);
 	abstract public function get($key, $default = NULL);
 	abstract public function set($key, $value = NULL);
 }
