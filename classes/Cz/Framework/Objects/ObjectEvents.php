@@ -63,7 +63,7 @@ abstract class ObjectEvents extends ObjectBase
 	protected function _erase($key)
 	{
 		$this->fireEvent('before-erase', func_get_args());
-		parent::_exists($key);
+		parent::_erase($key);
 		$this->fireEvent('after-erase', func_get_args());
 		return $this;
 	}
