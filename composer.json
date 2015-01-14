@@ -15,7 +15,7 @@
 		"issues": "https://github.com/czukowski/Framework/issues"
 	},
 	"require": {
-		"php": ">=5.4.0"
+		"php": "~5.4"
 	},
 	"autoload": {
 		"psr-0": {
