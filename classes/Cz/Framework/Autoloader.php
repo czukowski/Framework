@@ -1,9 +1,10 @@
 <?php
+namespace Cz\Framework;
+
 /**
  * Autoloader class
  * 
  * @package    Framework
- * @category   PHPUnit
  * @author     Korney Czukowski
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
@@ -14,7 +15,6 @@
  * @copyright  (c) 2008-2012 Kohana Team
  * @license    http://kohanaframework.org/license
  */
-namespace Cz\PHPUnit;
 
 class Autoloader
 {
