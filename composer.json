@@ -17,6 +17,9 @@
 	"require": {
 		"php": "~5.4"
 	},
+	"require-dev": {
+		"kohana/codebench": "~3.3"
+	},
 	"autoload": {
 		"psr-0": {
 			"Cz\\": "classes/Cz/"
