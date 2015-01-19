@@ -78,7 +78,7 @@ class ResultPrinter
 	 */
 	private function _printBenchmark($method, $benchmark)
 	{
-		echo "Benchmarks per subject for `$method`\n";
+		echo "Benchmarks per subject for `$method` method:\n";
 		echo "Total method memory: ".$this->_formatMemory($benchmark['memory'])
 			." (".$this->_formatRelative($benchmark['percent']['fastest']['memory']).")\n";
 		echo "Total method time: ".$this->_formatTime($benchmark['time'])
