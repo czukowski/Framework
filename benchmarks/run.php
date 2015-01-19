@@ -13,6 +13,12 @@ spl_autoload_register(array(
 	'load',
 ));
 
-$runner = new Cz\Codebench\Runner(__DIR__);
+$args = $_SERVER['argv'];
+if ( ! isset($args[1]))
+{
+	die('Too few arguments.');
+}
 
-new Codebench();
+new Cz\Codebench\Environment(__DIR__);
+$runner = new Cz\Codebench\Runner($args[1]);
+$runner->run();
