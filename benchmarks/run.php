@@ -1,9 +1,10 @@
 <?php
-
-/* 
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
+/**
+ * Kohana Codebench bootstrap for Framework
+ * 
+ * @author     Korney Czukowski
+ * @copyright  (c) 2015 Korney Czukowski
+ * @license    MIT License
  */
 
 require_once __DIR__.'/../classes/Cz/Framework/Autoloader.php';
