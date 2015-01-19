@@ -14,11 +14,29 @@
 	"support": {
 		"issues": "https://github.com/czukowski/Framework/issues"
 	},
+	"repositories": [
+		{
+			"type": "package",
+			"package": {
+				"name": "tony-landis/array-to-texttable",
+				"version": "master",
+				"source": {
+					"url": "https://gist.github.com/31477.git",
+					"type": "git",
+					"reference": "master"
+				},
+				"autoload": {
+					"files": ["array-to-texttable.php"]
+				}
+			}
+		}
+	],
 	"require": {
 		"php": "~5.4"
 	},
 	"require-dev": {
-		"kohana/codebench": "~3.3"
+		"kohana/codebench": "~3.3",
+		"tony-landis/array-to-texttable": "dev-master"
 	},
 	"autoload": {
 		"psr-0": {

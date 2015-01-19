@@ -7,6 +7,7 @@
  * @license    MIT License
  */
 
+require_once __DIR__.'/../vendor/autoload.php';
 require_once __DIR__.'/../classes/Cz/Framework/Autoloader.php';
 spl_autoload_register(array(
 	new Cz\Framework\Autoloader(array(__DIR__, __DIR__.'/../classes')),
@@ -20,5 +21,9 @@ if ( ! isset($args[1]))
 }
 
 new Cz\Codebench\Environment(__DIR__);
+
 $runner = new Cz\Codebench\Runner($args[1]);
-$runner->run();
+$results = $runner->run();
+
+$printer = new Cz\Codebench\ResultPrinter($results);
+$printer->printResults();
