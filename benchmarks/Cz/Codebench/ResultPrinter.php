@@ -102,7 +102,7 @@ class ResultPrinter
 	protected function _mapToArrayToTextTable($subject)
 	{
 		return array(
-			'return' => gettype($subject['return']),
+			'return type' => gettype($subject['return']),
 			'time' => $this->_formatTime($subject['time']),
 			'time rel' => $this->_formatRelative($subject['percent']['fastest']['time']),
 			'time grade' => $subject['grade']['time'],
