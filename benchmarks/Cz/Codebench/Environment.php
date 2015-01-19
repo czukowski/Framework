@@ -2,7 +2,7 @@
 namespace Cz\Codebench;
 
 /**
- * Runner
+ * Environment initializer for benchmarks.
  * 
  * @package    Framework
  * @category   Callbacks
@@ -10,7 +10,7 @@ namespace Cz\Codebench;
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License
  */
-class Runner
+class Environment
 {
 	/**
 	 * @var  string  Temporary dir path, will be deleted after benchmarks are finished.
@@ -30,7 +30,7 @@ class Runner
 	{
 		if (self::$_initialized)
 		{
-			throw new \RuntimeException('Cannot initialize benchmark runner more than once!');
+			throw new \RuntimeException('Cannot initialize Kohana environment more than once!');
 		}
 		$this->_initializeTempDir();
 		$this->_initializeKohanaPaths($appDir);
