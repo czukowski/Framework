@@ -7,7 +7,7 @@ namespace Cz\Codebench\Printers;
  * @uses  ArrayToTextTable
  * 
  * @package    Framework
- * @category   Callbacks
+ * @category   Codebench
  * @author     Korney Czukowski
  * @copyright  (c) 2015 Korney Czukowski
  * @license    MIT License

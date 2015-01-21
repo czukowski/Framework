@@ -5,7 +5,7 @@ namespace Cz\Codebench;
  * Environment initializer for benchmarks.
  * 
  * @package    Framework
- * @category   Callbacks
+ * @category   Codebench
  * @author     Korney Czukowski
  * @copyright  (c) 2014 Korney Czukowski
  * @license    MIT License

@@ -5,7 +5,7 @@ namespace Cz\Codebench\Printers;
  * Benchmark results printer base class.
  * 
  * @package    Framework
- * @category   Callbacks
+ * @category   Codebench
  * @author     Korney Czukowski
  * @copyright  (c) 2015 Korney Czukowski
  * @license    MIT License
