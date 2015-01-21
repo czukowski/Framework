@@ -1,5 +1,5 @@
 <?php
-namespace Cz\Codebench;
+namespace Cz\Codebench\Printers;
 
 /**
  * Benchmark results printer.
@@ -11,28 +11,9 @@ namespace Cz\Codebench;
  * @author     Korney Czukowski
  * @copyright  (c) 2015 Korney Czukowski
  * @license    MIT License
- * 
- * Using the default codebench template logic from Kohana/Codebench module.
- * 
- * @author     Kohana Team
- * @copyright  (c) 2009 Kohana Team
- * @license    http://kohanaphp.com/license.html
  */
-class ResultPrinter
+class ByMethod extends Printer
 {
-	/**
-	 * @var  array
-	 */
-	private $_results;
-
-	/**
-	 * @param  array  $results  Codebench results
-	 */
-	public function __construct(array $results)
-	{
-		$this->_results = $results;
-	}
-
 	/**
 	 * Prints Codebench results.
 	 */
