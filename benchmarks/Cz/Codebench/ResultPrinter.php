@@ -84,7 +84,7 @@ class ResultPrinter
 		echo "Total method time: ".$this->_formatTime($benchmark['time'])
 			." (".$this->_formatRelative($benchmark['percent']['fastest']['time']).")\n";
 
-		$subjects = array_map(array($this, '_mapToArrayToTextTable'), $benchmark['subjects']);
+		$subjects = $this->_mapToArrayToTextTable($benchmark['subjects']);
 
 		$renderer = new \ArrayToTextTable($subjects);
 		$renderer->showHeaders(TRUE);
@@ -96,20 +96,25 @@ class ResultPrinter
 	/**
 	 * Convert benchmark subject to flat array for tabular output.
 	 * 
-	 * @param   array  $subject
+	 * @param   array  $subjects
 	 * @return  array
 	 */
-	protected function _mapToArrayToTextTable($subject)
+	private function _mapToArrayToTextTable(array $subjects)
 	{
-		return array(
-			'return type' => gettype($subject['return']),
-			'time' => $this->_formatTime($subject['time']),
-			'time rel' => $this->_formatRelative($subject['percent']['fastest']['time']),
-			'time grade' => $subject['grade']['time'],
-			'memory' => $this->_formatMemory($subject['memory']),
-			'memory rel' => $this->_formatRelative($subject['percent']['fastest']['memory']),
-			'memory grade' => $subject['grade']['memory'],
-		);
+		$output = array();
+		foreach ($subjects as $key => $subject) {
+			$output[] = array(
+				'subject' => $key,
+				'return type' => gettype($subject['return']),
+				'time' => $this->_formatTime($subject['time']),
+				'time rel' => $this->_formatRelative($subject['percent']['fastest']['time']),
+				'time grade' => $subject['grade']['time'],
+				'memory' => $this->_formatMemory($subject['memory']),
+				'memory rel' => $this->_formatRelative($subject['percent']['fastest']['memory']),
+				'memory grade' => $subject['grade']['memory'],
+			);
+		}
+		return $output;
 	}
 
 	/**
