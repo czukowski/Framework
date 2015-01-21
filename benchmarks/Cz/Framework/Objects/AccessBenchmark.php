@@ -9,7 +9,7 @@ use Cz\Codebench\Benchmark;
  * available.
  * 
  * @package    Framework
- * @category   Callbacks
+ * @category   Objects
  * @author     Korney Czukowski
  * @copyright  (c) 2015 Korney Czukowski
  * @license    MIT License
