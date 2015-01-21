@@ -44,7 +44,7 @@ abstract class Printer
 	/**
 	 * Prints Codebench results.
 	 */
-	abstract public function printResults();
+	abstract public function render();
 
 	/**
 	 * Print results header, may be reused by other implementations.

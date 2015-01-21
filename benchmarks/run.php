@@ -27,4 +27,4 @@ $results = $runner->run();
 
 $printer = new Cz\Codebench\Printers\ByMethod;
 $printer->setResults($results)
-	->printResults();
+	->render();

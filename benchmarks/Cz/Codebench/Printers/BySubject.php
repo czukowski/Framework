@@ -17,7 +17,7 @@ class BySubject extends Printer
 	/**
 	 * Prints Codebench results.
 	 */
-	public function printResults()
+	public function render()
 	{
 		$this->printHeader();
 		foreach (array_keys($this->_results['subjects']) as $key)

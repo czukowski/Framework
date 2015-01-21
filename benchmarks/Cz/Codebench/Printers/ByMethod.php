@@ -17,7 +17,7 @@ class ByMethod extends Printer
 	/**
 	 * Prints Codebench results.
 	 */
-	public function printResults()
+	public function render()
 	{
 		$this->printHeader();
 		foreach ($this->_results['benchmarks'] as $method => $benchmark)
