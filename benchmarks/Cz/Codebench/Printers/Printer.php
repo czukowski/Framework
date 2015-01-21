@@ -35,4 +35,29 @@ abstract class Printer
 	 * Prints Codebench results.
 	 */
 	abstract public function printResults();
+
+	/**
+	 * Print results header, may be reused by other implementations.
+	 */
+	public function printHeader()
+	{
+		if (empty($this->_results))
+		{
+			echo "Library not found\n";
+		}
+		elseif (empty($this->_results['benchmarks']))
+		{
+			echo "No methods found to benchmark!\n";
+			echo "Remember to prefix the methods you want to benchmark with “bench”.\n";
+		}
+		else
+		{
+			echo $this->_results['class']."\n";
+			echo str_repeat('-', strlen($this->_results['class']))."\n";
+			echo strip_tags($this->_results['description'])."\n";
+			echo count($this->_results['subjects'])." subject(s), "
+				.$this->_results['loops']['base']." loops each, "
+				.$this->_results['loops']['total']." total.\n\n";
+		}
+	}
 }
