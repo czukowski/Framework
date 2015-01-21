@@ -25,5 +25,6 @@ new Cz\Codebench\Environment(__DIR__);
 $runner = new Cz\Codebench\Runner($args[1]);
 $results = $runner->run();
 
-$printer = new Cz\Codebench\Printers\ByMethod($results);
-$printer->printResults();
+$printer = new Cz\Codebench\Printers\ByMethod;
+$printer->setResults($results)
+	->printResults();

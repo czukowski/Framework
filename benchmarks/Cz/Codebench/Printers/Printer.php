@@ -24,11 +24,21 @@ abstract class Printer
 	protected $_results;
 
 	/**
-	 * @param  array  $results  Codebench results
+	 * @return  array|NULL
 	 */
-	public function __construct(array $results)
+	public function getResults()
+	{
+		return $this->_results;
+	}
+
+	/**
+	 * @param   array  $results  Codebench results
+	 * @return  $this
+	 */
+	public function setResults(array $results)
 	{
 		$this->_results = $results;
+		return $this;
 	}
 
 	/**
