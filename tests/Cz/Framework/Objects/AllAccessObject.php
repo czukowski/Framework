@@ -16,4 +16,12 @@ class AllAccessObject extends ObjectBase implements \ArrayAccess
 	use ArrayAccess;
 	use MethodAccess;
 	use PropertyAccess;
+
+	/**
+	 * Initialize values.
+	 */
+	public function __construct($values = array())
+	{
+		$this->_initialize($values);
+	}
 }

@@ -14,4 +14,12 @@ class PropertyAccessObject extends ObjectBase
 {
 	use CamelCaseFormat;
 	use PropertyAccess;
+
+	/**
+	 * Initialize values.
+	 */
+	public function __construct($values = array())
+	{
+		$this->_initialize($values);
+	}
 }

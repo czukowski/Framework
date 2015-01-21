@@ -72,12 +72,12 @@ class AccessBenchmark extends Benchmark
 	private function _createObjectInstance($className, $count)
 	{
 		$class = new \ReflectionClass($className);
-		$object = $class->newInstance();
+		$values = array();
 		for ($i = 0; $i < $count; $i++)
 		{
-			$object->set('key'.$i, 'value'.$i);
+			$values['key'.$i] = 'value'.$i;
 		}
-		return $object;
+		return $class->newInstance($values);
 	}
 
 	/**

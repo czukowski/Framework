@@ -14,4 +14,12 @@ class ArrayAccessObject extends ObjectBase implements \ArrayAccess, \Countable
 {
 	use CamelCaseFormat;
 	use ArrayAccess;
+
+	/**
+	 * Initialize values.
+	 */
+	public function __construct($values = array())
+	{
+		$this->_initialize($values);
+	}
 }

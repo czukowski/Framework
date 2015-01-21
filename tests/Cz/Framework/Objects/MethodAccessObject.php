@@ -14,4 +14,12 @@ class MethodAccessObject extends ObjectBase
 {
 	use CamelCaseFormat;
 	use MethodAccess;
+
+	/**
+	 * Initialize values.
+	 */
+	public function __construct($values = array())
+	{
+		$this->_initialize($values);
+	}
 }

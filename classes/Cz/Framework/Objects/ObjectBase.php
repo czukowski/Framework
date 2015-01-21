@@ -230,6 +230,18 @@ abstract class ObjectBase
 	}
 
 	/**
+	 * Replaces all values (for internal use, for example from constructor).
+	 * 
+	 * @param   array  $values
+	 * @return  $this
+	 */
+	protected function _initialize($values)
+	{
+		$this->container = $values;
+		return $this;
+	}
+
+	/**
 	 * Returns the name of a custom access method, for example:
 	 * 
 	 *     // Returns 'getSomething'
