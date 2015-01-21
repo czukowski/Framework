@@ -36,6 +36,7 @@
 	},
 	"require-dev": {
 		"kohana/codebench": "~3.3",
+		"pwfisher/command-line-php": "dev-master",
 		"tony-landis/array-to-texttable": "dev-master"
 	},
 	"autoload": {

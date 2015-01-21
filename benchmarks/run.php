@@ -5,6 +5,12 @@
  * @author     Korney Czukowski
  * @copyright  (c) 2015 Korney Czukowski
  * @license    MIT License
+ * 
+ * Uses CommandLine.php script to parse command line arguments.
+ * 
+ * @link       https://github.com/pwfisher/CommandLine.php
+ * @copyright  (c) 2009 Patrick Fisher
+ * @license    Creative Commons Attribution License
  */
 
 require_once __DIR__.'/../vendor/autoload.php';
@@ -14,17 +20,20 @@ spl_autoload_register(array(
 	'load',
 ));
 
-$args = $_SERVER['argv'];
-if ( ! isset($args[1]))
+$args = CommandLine::parseArgs($_SERVER['argv']);
+if (empty($args[0]))
 {
 	die('Too few arguments.');
+}
+elseif ( ! isset($args[0]))
+{
+	die('Benchmark classname not specified');
 }
 
 new Cz\Codebench\Environment(__DIR__);
 
-$runner = new Cz\Codebench\Runner($args[1]);
-$results = $runner->run();
+$runner = new Cz\Codebench\Runner($args[0]);
+$benchmarks = $runner->run();
 
-$printer = new Cz\Codebench\Printers\ByMethod;
-$printer->setResults($results)
-	->render();
+$results = new Cz\Codebench\Printers\Factory;
+$results->render($benchmarks, isset($args['printer']) ? $args['printer'] : NULL);
