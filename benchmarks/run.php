@@ -10,7 +10,7 @@
 require_once __DIR__.'/../vendor/autoload.php';
 require_once __DIR__.'/../classes/Cz/Framework/Autoloader.php';
 spl_autoload_register(array(
-	new Cz\Framework\Autoloader(array(__DIR__, __DIR__.'/../classes')),
+	new Cz\Framework\Autoloader(array(__DIR__, __DIR__.'/../classes', __DIR__.'/../tests')),
 	'load',
 ));
 
