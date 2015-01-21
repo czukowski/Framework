@@ -61,4 +61,37 @@ abstract class Printer
 				.$this->_results['loops']['total']." in total.\n\n";
 		}
 	}
+
+	/**
+	 * Format value in bytes.
+	 * 
+	 * @param   mixed  $value
+	 * @return  string
+	 */
+	protected function _formatMemory($value)
+	{
+		return \Text::bytes($value, 'MB', '%01.6f%s');
+	}
+
+	/**
+	 * Format value in percents.
+	 * 
+	 * @param   mixed  $value
+	 * @return  string
+	 */
+	protected function _formatRelative($value)
+	{
+		return ( (int) $value).'%';
+	}
+
+	/**
+	 * Format value in seconds.
+	 * 
+	 * @param   mixed  $value
+	 * @return  string
+	 */
+	protected function _formatTime($value)
+	{
+		return sprintf('%01.6f', $value).'s';
+	}
 }

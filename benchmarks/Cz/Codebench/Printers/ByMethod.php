@@ -72,37 +72,4 @@ class ByMethod extends Printer
 		}
 		return $output;
 	}
-
-	/**
-	 * Format value in bytes.
-	 * 
-	 * @param   mixed  $value
-	 * @return  string
-	 */
-	private function _formatMemory($value)
-	{
-		return \Text::bytes($value, 'MB', '%01.6f%s');
-	}
-
-	/**
-	 * Format value in percents.
-	 * 
-	 * @param   mixed  $value
-	 * @return  string
-	 */
-	private function _formatRelative($value)
-	{
-		return ( (int) $value).'%';
-	}
-
-	/**
-	 * Format value in seconds.
-	 * 
-	 * @param   mixed  $value
-	 * @return  string
-	 */
-	private function _formatTime($value)
-	{
-		return sprintf('%01.6f', $value).'s';
-	}
 }
