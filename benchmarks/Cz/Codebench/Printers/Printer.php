@@ -55,9 +55,10 @@ abstract class Printer
 			echo $this->_results['class']."\n";
 			echo str_repeat('-', strlen($this->_results['class']))."\n";
 			echo strip_tags($this->_results['description'])."\n";
-			echo count($this->_results['subjects'])." subject(s), "
+			echo count($this->_results['benchmarks'])." method(s), "
+				.count($this->_results['subjects'])." subject(s), "
 				.$this->_results['loops']['base']." loops each, "
-				.$this->_results['loops']['total']." total.\n\n";
+				.$this->_results['loops']['total']." in total.\n\n";
 		}
 	}
 }
